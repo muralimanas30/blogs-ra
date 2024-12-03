@@ -1,0 +1,86 @@
+/* Header container styles */
+.header-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    
+    position: relative;
+    overflow: hidden;
+    animation: slideIn 1s ease-out;
+    /* border-left: 2px solid white; */
+    /* Scroll-inanimationbackground-color: grey; */
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    background-color: transparent;
+}
+
+/* Icon container styles */
+.header-container .icons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    width: 20%;
+}
+
+/* Hover effect for icons */
+.header-container .icons > div {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.header-container .icons > div:hover {
+    color: orange;
+    transform: scale(1.15);
+    filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.3));
+}
+
+/* Notification container for individual icons */
+.header-container .icons .notification {
+    position: relative;
+}
+
+/* Notification dot styling */
+.notification .notification-dot {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: orange;
+    top: -5px;
+    right: -5px;
+    border-radius: 50%;
+    animation: pulse 1s infinite ease-in-out; /* Pulse animation for notification dot */
+}
+
+/* Scroll-in animation for header */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Pulse animation for notification dot */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}

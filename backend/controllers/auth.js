@@ -1,30 +1,42 @@
-const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
+const CustomError = require('../error/CustomError');
+const User = require('../models/User');
 
 const register = async (req, res) => {
-    const user = await User.create(req.body);
-    // console.log(`user from register ${user}`);
-    const token = user.createJWT();
-    res.status(StatusCodes.CREATED).json({
-        user: { name: user.name, id: user._id, email: user.email },
-        token,
-        message: "REGISTRATION SUCCESSFUL"
-    });
+    try {
+        const user = await User.create(req.body);
+        const token = user.createJWT();
+        res.status(StatusCodes.CREATED).json({
+            user: { name: user.name, id: user._id, email: user.email },
+            token,
+            message: "REGISTRATION SUCCESSFUL"
+        });
+    } catch (error) {
+        // Check for specific error types or provide a generic message
+        const statusCode = error.name === 'ValidationError' ? StatusCodes.BAD_REQUEST : StatusCodes.INTERNAL_SERVER_ERROR;
+        throw new CustomError(error.message || 'Registration failed', statusCode);
+    }
 };
+
 
 const login = async (req, res) => {
     const { email, password } = req.body;
-    if (!email || !password) throw new Error('Please provide email and password');
-    
+
+    if (!email || !password) {
+        throw new CustomError('Please provide email and password', 400);
+    }
+
     const user = await User.findOne({ email });
     if (!user) {
-        throw new Error('No account with entered email');
+        throw new CustomError('No account with entered email', 404);
     }
     // console.log(`user from login ${user}`);
-    
+
     const isPasswordCorrect = await user.comparePassword(password);
-    if (!isPasswordCorrect) throw new Error('Incorrect password');
-    
+    if (!isPasswordCorrect) {
+        throw new CustomError('Incorrect password', 401);
+    }
+
     const token = user.createJWT();
     res.status(StatusCodes.OK).json({
         user: { name: user.name, id: user._id, email: user.email },
@@ -39,12 +51,12 @@ const deleteUser = async (req, res) => {
 
         // Validate if `userId` is provided
         if (!userId) {
-            return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User ID is required' });
+            throw new CustomError('User ID is required', 400);
         }
 
         const user = await User.findByIdAndDelete(userId);
         if (!user) {
-            return res.status(StatusCodes.NOT_FOUND).json({ message: 'User not found' });
+            throw new CustomError('User not found', 404);
         }
         res.status(StatusCodes.OK).json({ message: 'User successfully deleted' });
     } catch (error) {
