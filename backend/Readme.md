@@ -141,3 +141,50 @@ The project uses custom error handling to return appropriate messages and HTTP s
     - 404: Not Found (e.g., user not found)
     - 500: Internal Server Error (e.g., unexpected errors)
 
+### *app.js*
+# `app.js` - Express Application Setup
+
+This file is the entry point of the Express application. It sets up the core server, middlewares, error handling, routes, and establishes a connection to the MongoDB database.
+
+## **Explanation of Code**
+
+```javascript
+require('dotenv').config()
+require('express-async-errors')
+
+const helmet = require('helmet')
+const cors = require('cors')
+const xss = require('xss-clean')
+
+const express = require('express')
+const app = express()
+
+app.use(express.json())
+app.use(helmet())
+app.use(cors())
+app.use(xss())
+
+const errorHandler = require('./error/errorHandler')
+const authenticator = require('./middleware/authentication')
+const authRouter = require('./routes/auth')
+app.use('/api/v1/auth/', authRouter)
+app.use(errorHandler)
+
+const connectDB = require('./db/connect')
+const start = async () => {
+    const port = 3000 || process.env.PORT
+    await connectDB(process.env.MONGO_URI)
+    console.log('connected to db')
+    app.listen(port, () => console.log('Server listening on port ' + port))
+}
+start()
+```
+## Key Features
+
+- **Environment Variables**: Uses `dotenv` to load sensitive configurations such as the MongoDB URI and JWT secret from a `.env` file.
+- **Security**: Implements `helmet`, `cors`, and `xss-clean` to protect against common web vulnerabilities, ensuring enhanced security.
+- **Error Handling**: Utilizes `express-async-errors` to automatically handle async errors and forward them to the error-handling middleware.
+- **Routing**: User authentication and management routes are defined in `routes/auth.js` and handled by `authRouter`.
+- **Database Connection**: Establishes a connection to MongoDB using the `connectDB` function defined in `db/connect.js`.
+- **Server Initialization**: The server connects to the database and starts on the specified port (defaults to 3000).
+
