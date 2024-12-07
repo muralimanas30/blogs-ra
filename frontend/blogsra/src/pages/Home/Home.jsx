@@ -11,6 +11,7 @@ const Home = () => {
     return (
         <>
             <div className='home-container'>
+                {authToken ? (<>
                 <div className="home-header">
                     <p className="home-heading">Welcome Home!</p>
                     <div className="home-nav">
@@ -21,13 +22,13 @@ const Home = () => {
                     </div>
                 </div>
 
-                {authToken ? (
                     <div className="home-feed-container">
                         <HomeSearchBox />
                         <div className="home-feed-container-elements">
                             <Blogs />
                         </div>
                     </div>
+                    </>
                 ) : (
                     <div className='home-feed-container'>
                         <div className='login-prompt-box'>

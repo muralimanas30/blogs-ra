@@ -1,0 +1,81 @@
+/* DropDown Container */
+.drop-down {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: #fff; /* White background */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a floating effect */
+    width: 150px; /* Set a fixed width for the dropdown */
+    z-index: 10;
+
+}
+
+/* Dropdown List */
+.drop-down-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+/* Dropdown List Item */
+.drop-down-list-item {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333; /* Dark text color */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.drop-down-list-item:hover {
+    background-color: #f1f1f1; /* Light gray background on hover */
+    color: #007bff; /* Change text color on hover */
+}
+
+/* Active Item */
+.drop-down-list-item:active {
+    background-color: #ddd; /* Slightly darker gray when clicked */
+}
+
+/* Arrow or triangle for dropdown (optional) */
+.drop-down::after {
+    content: '';
+    position: absolute;
+    top: -8px; /* Position the arrow above the dropdown */
+    right: 15px; /* Align the arrow with the right edge */
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 8px solid #fff; /* White arrow color */
+}
+
+/* Optional: For an animated transition of the dropdown appearing/disappearing */
+.drop-down-enter {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.drop-down-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+    -webkit-transition: opacity 300ms, transform 300ms;
+    -moz-transition: opacity 300ms, transform 300ms;
+    -ms-transition: opacity 300ms, transform 300ms;
+    -o-transition: opacity 300ms, transform 300ms;
+}
+
+.drop-down-exit {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.drop-down-exit-active {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 300ms, transform 300ms;
+}
