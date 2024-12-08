@@ -5,8 +5,7 @@ const https = require('https')
 // Google login handler
 const googleLogin = async (req, res) => {
     const { token: accessToken } = req.body; // Access token from client
-    console.log('Access token received:', accessToken);
-
+    
     if (!accessToken) {
         return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Access token is required' });
     }
@@ -32,8 +31,6 @@ const googleLogin = async (req, res) => {
                 }
 
                 const { email, name } = profile;
-                console.log(profile);
-
                 if (!email || !name) {
                     throw new CustomError('Failed to retrieve email or name from Google profile', StatusCodes.UNAUTHORIZED);
                 }
@@ -98,7 +95,7 @@ const login = async (req, res) => {
     if (!user) {
         throw new CustomError('No account with entered email', 404);
     }
-    // console.log(`user from login ${user}`);
+    
 
     const isPasswordCorrect = await user.comparePassword(password);
     if (!isPasswordCorrect) {
@@ -136,7 +133,7 @@ const deleteAllUserr = async (req, res) => {
     try {
         // Deleting all users
         const result = await User.deleteMany({});
-        // console.log(`${result.deletedCount} rows deleted`); // Log the count
+        console.log(`${result.deletedCount} rows deleted`); // Log the count
         return res.status(StatusCodes.OK).json({
             message: `${result.deletedCount} rows deleted`
         });

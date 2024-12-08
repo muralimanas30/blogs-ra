@@ -26,7 +26,6 @@ const Login = () => {
     const loginWithGoogle = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
             try {
-                console.log(tokenResponse);
                 // Send the token to the backend
                 const res = await axios.post('http://localhost:3000/api/v1/auth/google/callback', {
                     token: tokenResponse.access_token,

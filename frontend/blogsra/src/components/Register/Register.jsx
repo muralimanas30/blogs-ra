@@ -22,7 +22,6 @@ const Register = () => {
         onSuccess: async (tokenResponse) => {
             try {
 
-                console.log(tokenResponse)
                 // Pass the ID Token to the backend
                 const res = await axios.post('http://localhost:3000/api/v1/auth/google/callback', {
                     token: tokenResponse.access_token, // ID Token from Google response
