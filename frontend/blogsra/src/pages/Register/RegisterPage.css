@@ -1,0 +1,9 @@
+.register-container{
+    width: 100%;
+    background-image:url('../../assets/land2.jpg');
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

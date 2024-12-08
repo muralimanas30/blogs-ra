@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom';
 
-
+import GoogleCallback from './services/GoogleCallback';
 import AuthProvider from './context/AuthContext';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
@@ -59,6 +59,10 @@ const App = () => {
       path: "/register",
       element: <Register/>
     },
+    {
+      path:'/google/callback',
+      element:<GoogleCallback/>
+    }
   ]);
 
   return (

@@ -11,12 +11,22 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(helmet());
-app.use(cors());
+
+app.use(cors({
+    origin: 'http://localhost:5173', // Your frontend URL
+    credentials: true
+}));
+
 app.use(xss());
 
 // Routes
 const authRouter = require('./routes/auth');
 app.use('/api/v1/auth/', authRouter);
+app.use((req, res, next) => {
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+    res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+    next();
+});
 
 // Error Handler Middleware (placed last)
 const errorHandler = require('./error/errorHandler');

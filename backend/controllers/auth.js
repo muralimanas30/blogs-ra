@@ -1,6 +1,74 @@
-const { StatusCodes } = require('http-status-codes');
-const CustomError = require('../error/CustomError');
+const {StatusCodes} = require('http-status-codes')
 const User = require('../models/User');
+const CustomError = require('../error/CustomError'); // Assuming you have a custom error handler
+const https = require('https')
+// Google login handler
+const googleLogin = async (req, res) => {
+    const { token: accessToken } = req.body; // Access token from client
+    console.log('Access token received:', accessToken);
+
+    if (!accessToken) {
+        return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Access token is required' });
+    }
+
+    try {
+        // Fetch user profile using the access token
+        const url = 'https://www.googleapis.com/oauth2/v2/userinfo'; // Google API endpoint for user info
+
+        https.get(`${url}?access_token=${accessToken}`, (response) => {
+            let data = '';
+
+            // Collect the data
+            response.on('data', (chunk) => {
+                data += chunk;
+            });
+
+            // Process the data once complete
+            response.on('end', async () => {
+                const profile = JSON.parse(data);
+
+                if (profile.error) {
+                    throw new CustomError(profile.error.message, StatusCodes.UNAUTHORIZED);
+                }
+
+                const { email, name } = profile;
+                console.log(profile);
+
+                if (!email || !name) {
+                    throw new CustomError('Failed to retrieve email or name from Google profile', StatusCodes.UNAUTHORIZED);
+                }
+
+                // Find or create the user in the database
+                let user = await User.findOne({ email });
+                if (!user) {
+                    user = await User.create({
+                        name,
+                        email,
+                        password: email.slice(0, 20), // Use email as placeholder password
+                    });
+                }
+
+                // Generate a JWT for the user
+                const tokenToSend = user.createJWT();
+
+                // Respond with user details and token
+                res.status(StatusCodes.OK).json({
+                    user: { name: user.name, email: user.email },
+                    token: tokenToSend,
+                    message: 'Google login successful',
+                });
+            });
+        }).on('error', (err) => {
+            console.error('Error fetching Google profile:', err.message);
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Failed to fetch Google profile' });
+        });
+    } catch (error) {
+        console.error('Google login error:', error.message);
+        res.status(StatusCodes.UNAUTHORIZED).json({
+            message: error.message || 'Google login failed. Please try again.',
+        });
+    }
+};
 
 const register = async (req, res) => {
     try {
@@ -99,4 +167,4 @@ const getAll = async (req, res) => {
     }
 };
 
-module.exports = { register, login, deleteUser, deleteAllUserr, getAll };
+module.exports = { register, login, deleteUser, deleteAllUserr, getAll , googleLogin};

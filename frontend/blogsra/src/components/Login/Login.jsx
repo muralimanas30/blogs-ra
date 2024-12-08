@@ -1,10 +1,10 @@
-// export default Login;
+import { FaGoogle, FaApple } from 'react-icons/fa';
 import React, { useEffect, useState } from 'react';
 import './Login.css';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
-
+import { useGoogleLogin } from '@react-oauth/google';
 const Login = () => {
     // State to manage input values and error messages
     const [email, setEmail] = useState('');
@@ -12,11 +12,46 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate(); // Hook to navigate between routes
-    const { login,authToken } = useAuthContext(); // Use the login function from AuthContext
-    useEffect(()=>{
-        if(authToken)
-            navigate('/')
-    },[navigate,authToken])
+    const { login, authToken } = useAuthContext(); // Use the login function from AuthContext
+
+    useEffect(() => {
+        if (authToken) navigate('/'); // If user is already authenticated, redirect to home
+    }, [navigate, authToken]);
+
+    useEffect(() => {
+        if (authToken) navigate('/'); // If user is already authenticated, redirect to home
+    }, [navigate, authToken]);
+
+    // Google Login functionality
+    const loginWithGoogle = useGoogleLogin({
+        onSuccess: async (tokenResponse) => {
+            try {
+                console.log(tokenResponse);
+                // Send the token to the backend
+                const res = await axios.post('http://localhost:3000/api/v1/auth/google/callback', {
+                    token: tokenResponse.access_token,
+                });
+
+                const { token, user } = res.data;
+
+                // Save token and user data
+                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('token', token);
+                login(token); // Save token in AuthContext
+
+                navigate('/home'); // Navigate to home page
+            } catch (error) {
+                console.error("Error logging in with Google:", error.response?.data || error.message);
+                setErrorMessage('Google login failed. Please try again.');
+            }
+        },
+        onError: (error) => {
+            console.error('Google login error:', error);
+            setErrorMessage('Google login error. Please try again.');
+        },
+    });
+
+
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
@@ -24,7 +59,7 @@ const Login = () => {
         setErrorMessage(''); // Clear previous error messages
 
         try {
-            // Make the API request
+            // Make the API request to login the user
             const response = await axios.post('http://localhost:3000/api/v1/auth/login', { email, password });
 
             const { user, token, message } = response.data; // Destructure response from backend
@@ -37,8 +72,8 @@ const Login = () => {
             navigate('/home');  // Redirect to home page after successful login
         } catch (err) {
             // Handle any error from the API request
-            console.log(err.response?.data?.message +" : "+ err);
-            setErrorMessage(err.response?.data?.message || `${err}` || 'Login failed. Please try again.');
+            console.log(err.response?.data?.message || err);
+            setErrorMessage(err.response?.data?.message || 'Login failed. Please try again.');
         } finally {
             setIsLoading(false); // Reset loading state once the request is done
         }
@@ -46,20 +81,32 @@ const Login = () => {
 
     return (
         <div className="login-container-content">
+            <h1 className="company-name">BlogsRa</h1>
             {/* Display error message if there's any */}
             {errorMessage && <div className="error-message">{errorMessage}</div>}
 
+            {/* Third-party sign-in buttons */}
+            <div className="social-login">
+                <button className="google-login" type="button" onClick={loginWithGoogle}>
+                    Google <FaGoogle />
+                </button>
+                <button className="apple-login" type="button">
+                    Apple <FaApple />
+                </button>
+            </div>
+            <div className="divider"></div> {/* Horizontal line */}
+
             {/* Login form */}
             <form method="post" onSubmit={handleSubmit}>
-                {/* Username input */}
+                {/* Email input */}
                 <div className="usrbox">
-                    <label htmlFor="user-input">Name</label>
+                    <label htmlFor="email-input">Email</label>
                     <input
-                        type="text"
-                        name="username"
+                        type="email"
+                        name="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)} // Update email state
-                        placeholder="Enter your username"
+                        placeholder="Enter your email"
                         required
                     />
                 </div>
@@ -75,6 +122,9 @@ const Login = () => {
                         placeholder="Enter your password"
                         required
                     />
+                    <p className="forgot-password">
+                        <Link to="/forgot-password">Forgot password?</Link>
+                    </p>
                 </div>
 
                 {/* Submit button */}
@@ -85,14 +135,20 @@ const Login = () => {
                 </div>
             </form>
 
-            {/* Register link to navigate to the register page */}
-            <p> Dont have an account? You can register below</p>
-            <Link to="/register">
-                <button type="button">REGISTER</button>
-            </Link>
+            {/* Register section */}
+            <div className="register-box">
+                <p className="register-above">Dont have an account? You can register below</p>
+                <Link to="/register">
+                    <button className="register-button" type="button">
+                        REGISTER
+                    </button>
+                </Link>
+            </div>
         </div>
     );
 };
+
+
 
 export default Login;
 // import React, { useState } from 'react';

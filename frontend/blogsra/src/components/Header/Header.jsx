@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { FaUser , FaBell } from 'react-icons/fa';
+import { FaUser, FaBell } from 'react-icons/fa';
 import { BsFillSunFill, BsFillMoonStarsFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import DropDown from '../DropDown/DropDown';
 import './Header.css';
+import { useAuthContext } from '../../context/AuthContext';
 
 const Header = () => {
+    const { authToken } = useAuthContext
     const [isDarkMode, setIsDarkMode] = useState(false); // State for dark mode
     const [showDropDown, setShowDropDown] = useState(false); // State for dropdown visibility
     const [dropDownPosition, setDropDownPosition] = useState({ top: 0, left: 0 }); // Position of the dropdown
     const [dropdownItems, setDropdownItems] = useState([]); // Items to display in the dropdown
-    
+
     const navigate = useNavigate(); // Hook for navigation
 
     // Dictionary holding dropdown items for each icon type
@@ -63,14 +65,14 @@ const Header = () => {
     return (
         <>
             <header className={`header-container ${isDarkMode ? 'dark-mode' : ''}`}>
-                <h1>BlogsRa</h1>
+                <h1 className='blogsra-logo'>BlogsRa</h1>
                 <div className="icons">
                     {/* User Icon with dropdown */}
                     <div
                         className="user"
                         onClick={(e) => handleIconClick('user', e)} // Show dropdown for user options
                     >
-                        <FaUser/>
+                        <FaUser />
                     </div>
 
                     {/* Notification Icon with dropdown */}

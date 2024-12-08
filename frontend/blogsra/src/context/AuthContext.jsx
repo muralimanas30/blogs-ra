@@ -27,10 +27,13 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem('token', token); // Save the token in localStorage
         setAuthToken(token); // Update state with the new token
     };
+    
+
 
     // Function to log out by removing the token and resetting the state
     const logout = () => {
         localStorage.removeItem('token'); // Remove token from localStorage
+        localStorage.removeItem('user')
         setAuthToken(null); // Clear the state
     };
 
