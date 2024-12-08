@@ -4,9 +4,47 @@
   color: whitesmoke;
   min-height: 100vh;
 }
-.app-container{
+/* App Container */
+.app-container {
   width: 95%;
-  margin: auto;
-  padding: 10px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(45, 45, 45, 0.9) 0%, rgba(25, 25, 25, 0.9) 100%);
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: box-shadow 0.3s ease-in-out;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .app-container {
+    width: 100%;
+    padding: 15px;
+    margin: 0;
+    border-radius: 10px;
+  }
+}
+
+/* App Container Background Animation */
+@keyframes backgroundAnimation {
+  0% {
+    background: linear-gradient(135deg, rgba(45, 45, 45, 0.9) 0%, rgba(25, 25, 25, 0.9) 100%);
+  }
+  50% {
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.8) 0%, rgba(35, 35, 35, 0.8) 100%);
+  }
+  100% {
+    background: linear-gradient(135deg, rgba(45, 45, 45, 0.9) 0%, rgba(25, 25, 25, 0.9) 100%);
+  }
+}
+
+.app-container {
+  animation: backgroundAnimation 10s infinite alternate;
+}
+
 
