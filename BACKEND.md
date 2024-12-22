@@ -24,8 +24,6 @@ This project provides an API for user authentication and management. It allows u
 2. **Clone the repository**:
    ```bash
    git clone https://github.com/muralimanas30/blogs-ra/backend
-   ```
-   ```bash
    cd https://github.com/muralimanas30/blogs-ra
   ```
    YOULL NEED ALL THESE MODULES INSTALLED 
