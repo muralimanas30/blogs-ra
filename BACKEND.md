@@ -54,7 +54,10 @@ This project provides an API for user authentication and management. It allows u
       └── xss-clean@0.1.4
 
   ```
+
   You can install all the packages at once using the following command: 
+
+  
   ```bash 
   npm install @types/dotenv@6.1.1 @types/express-rate-limit@5.1.3 @types/express@5.0.0 @types/node@22.10.1 axios@1.7.8 bcrypt@5.1.1 cors@2.8.5 dotenv@16.4.5 express-async-errors@3.1.1 express-rate-limit@7.4.1 express@4.21.1 google-auth-library@9.15.0 helmet@8.0.0 http-status-codes@2.3.0 jsonwebtoken@9.0.2 mongoose@8.8.3 morgan@1.10.0 node@20.18.1 nodemailer@6.9.16 nodemon@3.1.7 react-router-dom@7.0.1 xss-clean@0.1.4`
   ```
