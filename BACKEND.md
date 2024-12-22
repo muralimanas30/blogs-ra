@@ -84,7 +84,7 @@ This project provides an API for user authentication and management. It allows u
 project-root/
 │
 ├── controller/
-│   ├── accountController.js      # Handles account-related operations
+│   ├── accountController.js      # Handles account-related operations  \n
 │   ├── auth.js                    # Handles user authentication (login, registration)
 │   ├── authAdmin.js               # Handles admin authentication
 │   ├── contactController.js        # Handles contact-related operations
