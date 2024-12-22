@@ -1,0 +1,92 @@
+/* NotFound.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Main container for the 404 page */
+.not-found {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    background:url('https://th.bing.com/th/id/R.b64d86e5e2c12e673d023d6b878ab2ae?rik=r9xXT8LLkxpkRg&riu=http%3a%2f%2fwww.zastavki.com%2fpictures%2foriginals%2f2015%2fSpace_Astronaut_lost_in_space_095120_.png&ehk=rlw7q1EnEr8lTaIIHn2KqbBwyKLe5o39nYCwwqj7zbA%3d&risl=&pid=ImgRaw&r=0') no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-blend-mode: overlay;
+    background-color: rgba(0, 0, 0, 0.4);
+    animation: notFoundSlideIn 0.4s linear forwards;
+    opacity: 0;
+    transform: translate(10%, 0px);
+    animation-timeline: scroll(0%, 0%);
+ 
+}
+
+@keyframes notFoundSlideIn {
+    to {
+        opacity: 1;
+        transform: translate(0%, 0%);
+    }
+}
+
+/* Dark overlay for better readability */
+.not-found__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+/* Content wrapper for the 404 text and button */
+.not-found__content {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+}
+
+/* Large title for 404 */
+.not-found__title {
+    font-size: 6rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 30px rgb(0, 0, 0);
+}
+
+/* Message below the 404 title */
+.not-found__message {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgb(0, 0, 0);
+}
+
+/* Button for navigating back to the homepage */
+.not-found__button {
+    font-size: 1rem;
+    max-width: 200px;
+    padding: 10px 30px;
+    color: white;
+    background-color: #ff6b6b;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+}
+
+.not-found__button:hover {
+    background-color: #ff3b3b;
+    transform: scale(1.05);
+}

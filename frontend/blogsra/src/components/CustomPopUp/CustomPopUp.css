@@ -1,0 +1,305 @@
+/* From Uiverse.io by mrhyddenn */
+
+/* The Modal Background */
+
+/* From Uiverse.io by satyamchaudharydev */
+.spinner {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-left: -75px;
+}
+
+.spinner span {
+  position: absolute;
+  top: 50%;
+  left: var(--left);
+  width: 35px;
+  height: 7px;
+  background: #ffff;
+  animation: dominos 1s ease infinite;
+  box-shadow: 2px 2px 3px 0px black;
+}
+
+.spinner span:nth-child(1) {
+  --left: 80px;
+  animation-delay: 0.125s;
+}
+
+.spinner span:nth-child(2) {
+  --left: 70px;
+  animation-delay: 0.3s;
+}
+
+.spinner span:nth-child(3) {
+  left: 60px;
+  animation-delay: 0.425s;
+}
+
+.spinner span:nth-child(4) {
+  animation-delay: 0.54s;
+  left: 50px;
+}
+
+.spinner span:nth-child(5) {
+  animation-delay: 0.665s;
+  left: 40px;
+}
+
+.spinner span:nth-child(6) {
+  animation-delay: 0.79s;
+  left: 30px;
+}
+
+.spinner span:nth-child(7) {
+  animation-delay: 0.915s;
+  left: 20px;
+}
+
+.spinner span:nth-child(8) {
+  left: 10px;
+}
+
+@keyframes dominos {
+  50% {
+    opacity: 0.7;
+  }
+
+  75% {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+
+  80% {
+    opacity: 1;
+  }
+}
+
+.CustomPopUp-mainContainer {
+  position: fixed;
+  /* Fixed position on the screen */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  /* Centering the modal */
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent overlay */
+  z-index: 9999;
+  /* High z-index to ensure it's on top */
+  padding: 10px;
+}
+
+/* Form Container */
+.CustomPopUp-mainContainer .form-container {
+  background-color: #fff;
+  /* White background for the form */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 100%;
+  z-index: 10000;
+  /* Higher than the overlay */
+}
+
+/* Form Input Styling */
+.form__group {
+  position: relative;
+  padding: 20px 20px;
+  width: 95%;
+  max-width: 300px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  /* Dark mode colors and gradient */
+  background: #121212; /* Fallback for browsers that don't support gradients */
+  background: linear-gradient(
+    135deg,
+    #121212 25%,
+    #1a1a1a 25%,
+    #1a1a1a 50%,
+    #121212 50%,
+    #121212 75%,
+    #1a1a1a 75%,
+    #1a1a1a
+  );
+  background-size: 40px 40px;
+
+  /* Animation */
+  animation: moveBG3 4s linear infinite;
+}
+
+@keyframes moveBG3 {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  font-size: 17px;
+  color: #fff;
+  padding: 7px 10px;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.form__field::placeholder {
+  color: transparent;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+  font-size: 17px;
+  cursor: text;
+}
+
+.form__label {
+  position: absolute;
+  bottom: 125px;
+  display: block;
+  transition: 0.2s;
+  font-size: 17px;
+  color: #9b9b9b;
+  pointer-events: none;
+}
+
+/* Focus effect */
+.form__field:focus {
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #116399, #38caef);
+  border-image-slice: 1;
+}
+
+.form__field:focus ~ .form__label {
+  position: absolute;
+  bottom: 160px;
+  display: block;
+  transition: 0.2s;
+  font-size: 17px;
+  color: #38caef;
+  font-weight: 700;
+}
+
+/* Reset for required and invalid inputs */
+.form__field:required,
+.form__field:invalid {
+  box-shadow: none;
+}
+
+/* Button Styling */
+.CustomPopUp-mainContainer .button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.CustomPopUp-mainContainer .button-container button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.CustomPopUp-mainContainer .button-container button:hover {
+  background-color: #2980b9;
+}
+
+/* Close Button */
+.CustomPopUp-mainContainer .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.CustomPopUp-mainContainer .close-button:hover {
+  color: #3498db;
+}
+
+/* From Uiverse.io by andrew-demchenk0 */
+.CustomPopUpDeletebutton {
+  position: relative;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid #cc0000;
+  background-color: #e50000;
+  overflow: hidden;
+}
+
+.CustomPopUpDeletebutton,
+.button__icon,
+.button__text {
+  transition: all 0.3s;
+}
+
+.CustomPopUpDeletebutton .button__text {
+  transform: translateX(35px);
+  color: #fff;
+  font-weight: 600;
+}
+
+.CustomPopUpDeletebutton .button__icon {
+  position: absolute;
+  transform: translateX(109px);
+  height: 100%;
+  width: 39px;
+  background-color: #cc0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CustomPopUpDeletebutton .svg {
+  width: 20px;
+}
+
+.CustomPopUpDeletebutton:hover {
+  background: #cc0000;
+}
+
+.CustomPopUpDeletebutton:hover .button__text {
+  color: transparent;
+}
+
+.CustomPopUpDeletebutton:hover .button__icon {
+  width: 148px;
+  transform: translateX(0);
+}
+
+.CustomPopUpDeletebutton:active .button__icon {
+  background-color: #b20000;
+}
+
+.CustomPopUpDeletebutton:active {
+  border: 1px solid #b20000;
+}

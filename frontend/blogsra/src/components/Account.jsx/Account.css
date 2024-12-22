@@ -1,0 +1,128 @@
+/* Root styles for the account container */
+.account-container {
+    font-family: 'REM', sans-serif;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: linear-gradient(120deg, #f5faff, #e2f5fc);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    animation: accountFadeIn 0.8s ease-in-out;
+}
+
+/* Highly specific fade-in effect for the account container */
+@keyframes accountFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header styles for the account page */
+.account-header {
+    text-align: center;
+    color: #333;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+/* Styling for the account information section */
+.account-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.account-info .info-item {
+    font-size: 1.1rem;
+    color: #555;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    transition: color 0.3s ease-in-out;
+}
+
+.account-info .info-item:last-child {
+    border-bottom: none;
+}
+
+.account-info .info-item:hover {
+    color: #007bff;
+}
+
+/* Buttons container */
+.account-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.account-buttons .delete-button,
+.account-buttons .back-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin: 0px 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+.account-buttons .delete-button {
+    background: #ff4c4c;
+    color: #fff;
+}
+
+.account-buttons .delete-button:hover {
+    background: #e43e3e;
+}
+
+.account-buttons .back-button {
+    background: #4caf50;
+    color: #fff;
+}
+
+.account-buttons .back-button:hover {
+    background: #43a047;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .account-container {
+        padding: 15px;
+    }
+
+    .account-header {
+        font-size: 1.8rem;
+    }
+
+    .account-info .info-item {
+        font-size: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .account-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .account-buttons .delete-button,
+    .account-buttons .back-button {
+        width: 90%;
+        text-align: center;
+    }
+}

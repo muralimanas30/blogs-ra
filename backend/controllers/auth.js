@@ -2,7 +2,11 @@ const {StatusCodes} = require('http-status-codes')
 const User = require('../models/User');
 const CustomError = require('../error/CustomError'); // Assuming you have a custom error handler
 const https = require('https')
-// Google login handler
+
+
+/* -------------------------------------------------------------------------- */
+/*                            Google login handler                            */
+/* -------------------------------------------------------------------------- */
 const googleLogin = async (req, res) => {
     const { token: accessToken } = req.body; // Access token from client
     
@@ -39,9 +43,9 @@ const googleLogin = async (req, res) => {
                 let user = await User.findOne({ email });
                 if (!user) {
                     user = await User.create({
-                        name,
                         email,
-                        password: email.slice(0, 20), // Use email as placeholder password
+                        name,
+                        password: email.slice(0, 6), // Use email as placeholder password
                     });
                 }
 
@@ -66,7 +70,9 @@ const googleLogin = async (req, res) => {
         });
     }
 };
-
+ /* -------------------------------------------------------------------------- */
+ /*                              REGISTER FUNCTION                             */
+ /* -------------------------------------------------------------------------- */
 const register = async (req, res) => {
     try {
         const user = await User.create(req.body);
@@ -83,7 +89,9 @@ const register = async (req, res) => {
     }
 };
 
-
+/* -------------------------------------------------------------------------- */
+/*                               LOGIN FUCNTION                               */
+/* -------------------------------------------------------------------------- */
 const login = async (req, res) => {
     const { email, password } = req.body;
 
@@ -110,9 +118,22 @@ const login = async (req, res) => {
     });
 };
 
+ /* -------------------------------------------------------------------------- */
+ /*                      FUNCTION TO JUST VERIFY PASSWORD                      */
+ /* -------------------------------------------------------------------------- */
+const verifyPassword = async(req,res)=>{
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    const isPasswordCorrect = await user.comparePassword(password);
+    if (!isPasswordCorrect) {
+        throw new CustomError('Invalid password', 401);
+    }
+    res.status(200).json({message:'Valid Password'
+    })
+}
 const deleteUser = async (req, res) => {
     try {
-        const { userId } = req.params;
+        const { userId } = req.user;
 
         // Validate if `userId` is provided
         if (!userId) {
@@ -123,45 +144,21 @@ const deleteUser = async (req, res) => {
         if (!user) {
             throw new CustomError('User not found', 404);
         }
-        res.status(StatusCodes.OK).json({ message: 'User successfully deleted' });
+        res.status(StatusCodes.OK).json({ message: 'Account Deleted' });
     } catch (error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
     }
 };
 
+/* -------------------------------------------------------------------------- */
+/*             FEW ADMIN ROUTES LATER WILL BE ADDED                            */
+/* -------------------------------------------------------------------------- */
+
 const deleteAllUserr = async (req, res) => {
-    try {
-        // Deleting all users
-        const result = await User.deleteMany({});
-        console.log(`${result.deletedCount} rows deleted`); // Log the count
-        return res.status(StatusCodes.OK).json({
-            message: `${result.deletedCount} rows deleted`
-        });
-    } catch (error) {
-        // console.error('Error deleting users:', error.message); // Log error for debugging
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
-    }
-};
+    res.status(401).json({message:"COMING SOON"})
+}
 
 const getAll = async (req, res) => {
-    try {
-        // Fetching all users
-        const users = await User.find({});
-        if (users.length) {
-            return res.status(StatusCodes.OK).json({
-                users: users, // Directly return the array
-                message: "FETCH SUCCESSFUL"
-            });
-        } else {
-            return res.status(StatusCodes.OK).json({
-                users: [],
-                message: "No users found"
-            });
-        }
-    } catch (error) {
-        // console.error('Error fetching users:', error.message); // Log error for debugging
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
-    }
-};
-
-module.exports = { register, login, deleteUser, deleteAllUserr, getAll , googleLogin};
+    res.status(401).json({message:"COMING SOON"})
+}
+module.exports = { verifyPassword,register, login, deleteUser, deleteAllUserr, getAll , googleLogin};

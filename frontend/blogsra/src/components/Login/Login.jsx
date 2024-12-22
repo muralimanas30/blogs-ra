@@ -6,17 +6,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
 import { useGoogleLogin } from '@react-oauth/google';
 const Login = () => {
+
+    const { backend_domain } = useAuthContext()
     // State to manage input values and error messages
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate(); // Hook to navigate between routes
-    const { login, authToken } = useAuthContext(); // Use the login function from AuthContext
-
-    useEffect(() => {
-        if (authToken) navigate('/'); // If user is already authenticated, redirect to home
-    }, [navigate, authToken]);
+    const { login, authToken, createAccount } = useAuthContext(); // Use the login function from AuthContext
 
     useEffect(() => {
         if (authToken) navigate('/'); // If user is already authenticated, redirect to home
@@ -27,17 +25,14 @@ const Login = () => {
         onSuccess: async (tokenResponse) => {
             try {
                 // Send the token to the backend
-                const res = await axios.post('http://localhost:3000/api/v1/auth/google/callback', {
+                const res = await axios.post(`${backend_domain}/api/v1/auth/google/callback`, {
                     token: tokenResponse.access_token,
                 });
 
                 const { token, user } = res.data;
-
                 // Save token and user data
-                localStorage.setItem('user', JSON.stringify(user));
-                localStorage.setItem('token', token);
-                login(token); // Save token in AuthContext
-
+                login(token, user); // Save token in AuthContext
+                createAccount(token)
                 navigate('/home'); // Navigate to home page
             } catch (error) {
                 console.error("Error logging in with Google:", error.response?.data || error.message);
@@ -59,14 +54,13 @@ const Login = () => {
 
         try {
             // Make the API request to login the user
-            const response = await axios.post('http://localhost:3000/api/v1/auth/login', { email, password });
+            const response = await axios.post(`${backend_domain}/api/v1/auth/login`, { email, password });
 
             const { user, token, message } = response.data; // Destructure response from backend
 
             // Store the token and user data in localStorage and in AuthContext
-            login(token); // Store token in AuthContext
-            localStorage.setItem('user', JSON.stringify(user)); // Store user data in localStorage
-
+            login(token, user); // Store token in AuthContext
+            createAccount(token)
             console.log('Login successful:', message); // Log success message
             navigate('/home');  // Redirect to home page after successful login
         } catch (err) {
@@ -79,71 +73,78 @@ const Login = () => {
     };
 
     return (
-        <div className="login-container-content">
-            <h1 className="company-name">BlogsRa</h1>
-            {/* Display error message if there's any */}
-            {errorMessage && <div className="error-message">{errorMessage}</div>}
-
-            {/* Third-party sign-in buttons */}
-            <div className="social-login">
-                <button className="google-login" type="button" onClick={loginWithGoogle}>
-                    Google <FaGoogle />
-                </button>
-                <button className="apple-login" type="button">
-                    Apple <FaApple />
-                </button>
-            </div>
-            <div className="divider"></div> {/* Horizontal line */}
-
-            {/* Login form */}
-            <form method="post" onSubmit={handleSubmit}>
-                {/* Email input */}
-                <div className="usrbox">
-                    <label htmlFor="email-input">Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)} // Update email state
-                        placeholder="Enter your email"
-                        required
-                    />
-                </div>
-
-                {/* Password input */}
-                <div className="passwordbox">
-                    <label htmlFor="password-input">Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)} // Update password state
-                        placeholder="Enter your password"
-                        required
-                    />
-                    <p className="forgot-password">
-                        <Link to="/forgot-password">Forgot password?</Link>
-                    </p>
-                </div>
-
-                {/* Submit button */}
-                <div className="submit-box">
-                    <button type="submit" disabled={isLoading}>
-                        {isLoading ? 'Logging in...' : 'Login'} {/* Show loading text when logging in */}
-                    </button>
-                </div>
-            </form>
-
-            {/* Register section */}
-            <div className="register-box">
-                <p className="register-above">Dont have an account? You can register below</p>
-                <Link to="/register">
-                    <button className="register-button" type="button">
-                        REGISTER
-                    </button>
+        <>
+                
+            <div className="login-container-content">
+                <h1 className="company-name">BlogsRa</h1>
+                <Link to="/" className='login-back-home'>
+                        ⬅️
                 </Link>
+                {/* Display error message if there's any */}
+                {errorMessage && <div className="error-message">{errorMessage}</div>}
+
+                {/* Third-party sign-in buttons */}
+                <div className="social-login">
+                    <button className="google-login" type="button" onClick={loginWithGoogle}>
+                        Google <FaGoogle />
+                    </button>
+                    <button className="apple-login" type="button">
+                        Apple <FaApple />
+                    </button>
+                </div>
+                <div className="divider"></div> {/* Horizontal line */}
+
+                {/* Login form */}
+                <form method="post" onSubmit={handleSubmit}>
+                    {/* Email input */}
+                    <div className="usrbox">
+                        <label htmlFor="email-input">Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)} // Update email state
+                            placeholder="Enter your email"
+                            required
+                            autoFocus
+                        />
+                    </div>
+
+                    {/* Password input */}
+                    <div className="passwordbox">
+                        <label htmlFor="password-input">Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)} // Update password state
+                            placeholder="Enter your password"
+                            required
+                        />
+                        <p className="forgot-password">
+                            <Link to="/forgot-password">Forgot password?</Link>
+                        </p>
+                    </div>
+
+                    {/* Submit button */}
+                    <div className="submit-box">
+                        <button type="submit" disabled={isLoading}>
+                            {isLoading ? 'Logging in...' : 'Login'} {/* Show loading text when logging in */}
+                        </button>
+                    </div>
+                </form>
+
+                {/* Register section */}
+                <div className="register-box">
+                    <p className="register-above">Dont have an account? You can register below</p>
+                    <Link to="/register">
+                        <button className="register-button" type="button">
+                            REGISTER
+                        </button>
+                    </Link>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

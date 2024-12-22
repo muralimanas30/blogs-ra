@@ -1,4 +1,4 @@
-# Project Title
+# Project : BlogsRa FRONT_END
 
 RUN THIS ONELINER TO INSTALL REQ PACKAGES
 npm install react-icons react-toastify react-query axios formik yup react-router-dom framer-motion classnames clsx lodash moment dayjs

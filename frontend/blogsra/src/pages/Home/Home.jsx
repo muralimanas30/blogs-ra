@@ -10,6 +10,7 @@ const Home = () => {
 
     return (
         <>
+
             <div className="home-container">
                 {authToken ? (
                     <>
@@ -32,6 +33,7 @@ const Home = () => {
                     </>
                 ) : (
                     <div className="full-screen-login-prompt">
+                        <lottie-player className='home-hero' src="https://lottie.host/5d7fd1fd-153a-44ca-82a8-3608f7c26f7f/43EZv2r2g3.json" background="##fff" style={{ width: "300px", height: "300px" }} loop autoplay mode="normal"></lottie-player>
                         <div className="login-prompt-box">
                             <h2 className="login-heading">Welcome to BlogsRa!</h2>
                             <p className="login-text">
@@ -51,6 +53,7 @@ const Home = () => {
 
             {/* Render nested routes if any */}
             <Outlet />
+
         </>
     );
 };

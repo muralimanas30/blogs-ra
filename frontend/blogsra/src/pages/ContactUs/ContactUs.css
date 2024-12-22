@@ -1,46 +1,47 @@
 /* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Body and Fonts */
-body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f4f4f4;
-    /* Light background for the body */
-}
-
-/* Main Contact Us Section */
 .contact-us {
-    padding: 100px 0;
+    margin: 33px auto;
+    width: 100%;
 }
 
 /* Contact Us Section */
 .contact-section {
     position: relative;
-    background:
-        linear-gradient(45deg, rgba(32, 103, 168, 0.9), rgba(74, 144, 226, 0.9)),
-        /* Soft blue gradient */
-        url('https://images.unsplash.com/photo-1519681393702-1c7c28b8bb7d?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center/cover;
-    /* Beautiful background image */
-    text-align: center;
-    padding: 50px 0;
+    background:linear-gradient(rgba(0,0,0,0.719),rgba(255,255,255,0.137),rgba(1,42,88,0.397)),/*Softbluegradient*/url('https://www.teahub.io/photos/full/48-486428_about-contact-us-wallpaper-hd.jpg') no-repeat center center/cover;
+    /*Beautifulbackgroundimage*/text-align: center;
+    padding: 25px 0;
     color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 1.5s ease-out;
-    /* Fade-in effect for the section */
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    -webkit-animation: homeFadeIn 0.4s linear forwards;
+    animation: homeFadeIn 0.4s linear forwards;
+    -webkit-filter:brightness(1.2);
+    filter:brightness(1.2);
+    /*foranimation*/opacity: 0;
+    -webkit-transform: translate(0,-10%);
+    -moz-transform: translate(0,-10%);
+    -ms-transform: translate(0,-10%);
+    -o-transform: translate(0,-10%);
+    transform: translate(0,-10%);
+    animation-timeline:scroll(0%,0%);
 }
-
+@keyframes contactFadeIn {
+    to{
+        opacity: 1;
+        -webkit-transform: translate(0%,0%);
+        -moz-transform: translate(0%,0%);
+        -ms-transform: translate(0%,0%);
+        -o-transform: translate(0%,0%);
+        transform: translate(0%,0%);
+}
+}
 .contact-section h2 {
     font-size: 3em;
     margin-bottom: 20px;
     color: #fff;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    
+    /* text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); */
     /* Soft cyan glow for the heading */
 }
 
@@ -51,6 +52,7 @@ body {
     margin: 0 auto;
     margin-bottom: 30px;
     color: #f0f0f0;
+
 }
 
 /* Form Styling */
@@ -58,15 +60,13 @@ body {
     max-width: 600px;
     margin: 0 auto;
     background-color: rgba(255, 255, 255, 0.8);
-    /* Light transparent background */
-    padding: 30px;
+    /*Lighttransparentbackground*/padding: 30px;
     border-radius: 10px;
     border: 2px solid rgba(0, 102, 204, 0.7);
-    /* Soft border in blue */
-    box-shadow: 0 0 10px rgba(0, 102, 204, 0.3);
-    /* Subtle blue glow shadow */
-    animation: slideIn 0.5s ease-out;
-    /* Animation for form appearance */
+    /*Softborderinblue*/box-shadow: 0 0 10px rgba(0, 102, 204, 0.3);
+    -webkit-animation: slideIn 0.5s ease-out;
+    /*Subtleblueglowshadow*/animation: slideIn 0.5s ease-out;
+        
 }
 
 .form-group {
@@ -153,4 +153,107 @@ body {
         transform: translateY(0);
         opacity: 1;
     }
+}
+
+/* Media Query for Small Screens */
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 20px 10px;
+        border-radius: 5px;
+    }
+
+    .contact-section h2 {
+        font-size: 2.5em;
+        margin-bottom: 15px;
+    }
+
+    .contact-section p {
+        font-size: 1em;
+        line-height: 1.4;
+    }
+
+    .contact-form {
+        padding: 20px;
+        box-shadow: 0 0 5px rgba(0, 102, 204, 0.3);
+    }
+
+    .form-group label {
+        font-size: 1em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    .submit-button {
+        font-size: 1em;
+        padding: 12px 30px;
+    }
+}
+
+/* Media Query for Extra Small Screens */
+@media (max-width: 480px) {
+    .contact-section h2 {
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+
+    .contact-section p {
+        font-size: 0.9em;
+    }
+
+    .contact-form {
+        padding: 15px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .submit-button {
+        font-size: 0.9em;
+        padding: 10px 25px;
+    }
+}
+/* Overlay and spinner styles */
+
+/* Success and error message styles */
+
+/* Spinner and loading overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Slight fade */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it sits on top of the form */
+}
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3); /* Light gray border */
+    border-top: 4px solid #fff; /* White border top */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+/* Spinner animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Disable form elements when loading */
+input:disabled, textarea:disabled, button:disabled {
+    background-color: #f0f0f0; /* Light gray background for disabled state */
+    cursor: not-allowed;
 }

@@ -1,7 +1,9 @@
 import React from 'react';
 import './Footer.css'; // Import the styles
+import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+    const navigate = useNavigate()
     return (
         <footer className="footer">
             <div className="footer-container">
@@ -15,7 +17,7 @@ const Footer = () => {
                 <div className="footer-column">
                     <h3 className="footer-heading">Quick Links</h3>
                     <ul className="footer-links">
-                        <li><a href="#">Home</a></li>
+                        <li><a href='/' >Home</a></li>
                         <li><a href="#">Categories</a></li>
                         <li><a href="#">Latest Posts</a></li>
                         <li><a href="#">About</a></li>

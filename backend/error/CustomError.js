@@ -1,3 +1,7 @@
+
+/* -------------------------------------------------------------------------- */
+/*                            CUSTOM ERROR HANDLER                            */
+/* -------------------------------------------------------------------------- */
 class CustomError extends Error {
     constructor(message, statusCode) {
         super(message);
@@ -6,3 +10,7 @@ class CustomError extends Error {
 }
 
 module.exports = CustomError;
+
+/* -------------------------------------------------------------------------- */
+/*                       MORE CUSTOM ERRORS, COMING SOON                      */
+/* -------------------------------------------------------------------------- */

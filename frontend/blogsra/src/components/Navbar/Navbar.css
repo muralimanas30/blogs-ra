@@ -1,123 +1,126 @@
 /* General Styles for the Navbar */
 .nav-container {
     width: 100%;
-    border-top:2px solid white;
-    border-radius: 12px;;
-    background:linear-gradient(135deg,rgb(0, 15, 48),rgb(47, 0, 92));
-    /*Darkerbackgroundforamorerefinedlook*/padding: 10px 0;
-    /*Paddingforbetterspacing*/box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    /*Softshadowfora3Deffect*/animation: fadeIn 1s ease-out;
-    /*Fade-ineffectonpageload*/:;
+    border-top: 2px solid white;
+    
+    background: transparent;
+    padding: 10px 0;
     -webkit-border-radius: 12px;
     -moz-border-radius: 12px;
     -ms-border-radius: 12px;
     -o-border-radius: 12px;
+    border-radius: 12px;
 }
 
-/* Keyframes for animations */
-@keyframes fadeIn {
-    from {
-        background-color: rgb(37, 37, 37); /* Starting background color */
-        opacity: 0;
-        -webkit-transform: translate(0%, -50%) rotateY(-30deg) scale(0.8);
-        -moz-transform: translate(0%, -50%) rotateY(-30deg) scale(0.8);
-        -ms-transform: translate(0%, -50%) rotateY(-30deg) scale(0.8);
-        -o-transform: translate(0%, -50%) rotateY(-30deg) scale(0.8);
-        transform: translate(0%, -50%) rotateY(-30deg) scale(0.8);
-    }
-    to {
-        opacity: 1;
-        -webkit-transform: translate(0%, 0) rotateY(0deg) scale(1);
-        -moz-transform: translate(0%, 0) rotateY(0deg) scale(1);
-        -ms-transform: translate(0%, 0) rotateY(0deg) scale(1);
-        -o-transform: translate(0%, 0) rotateY(0deg) scale(1);
-        transform: translate(0%, 0) rotateY(0deg) scale(1); /* Final position */
-    }
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateY(-20px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes neonGlow {
+@keyframes navSlideIn {
     0% {
-        text-shadow: 0 0 3px #00b894, 0 0 6px #00b894, 0 0 9px #00b894, 0 0 12px #00b894;
-    }
-    50% {
-        text-shadow: 0 0 6px #00b894, 0 0 12px #00b894, 0 0 18px #00b894, 0 0 24px #00b894;
-    }
+        opacity: 0;
+        -webkit-transform: translate(0%, -50%);
+        -moz-transform: translate(0%, -50%);
+        -ms-transform: translate(0%, -50%);
+        -o-transform: translate(0%, -50%);
+        transform: translate(0%, -50%);
+}
+
     100% {
-        text-shadow: 0 0 3px #00b894, 0 0 6px #00b894, 0 0 9px #00b894, 0 0 12px #00b894;
+        opacity: 1;
+
     }
+
 }
 
 /* Animating Navbar links */
 .nav-links {
     width: 80%;
-    margin: 0 auto; /* Center the navbar */
+    margin: 0 auto;
     display: flex;
-    justify-content: space-around; /* Distribute the links evenly */
+    justify-content: center;
     align-items: center;
-    animation: slideIn 1s ease-out;
+    -webkit-animation: navSlideIn 0.4s ease-in;
+    animation: navSlideIn 0.4s ease-in;
+    animation-timeline: scroll(0%,0%);
 }
 
 .nav-links ul {
-    list-style-type: none; /* Remove bullets from the list */
+    list-style-type: none;
+    /* Remove bullets from the list */
+    width: 80%;
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 30px; /* Space between each list item */
+    justify-content: center;
+    gap: 30px;
+    /* Space between each list item */
 }
 
 .nav-links li {
     font-size: 16px;
-    position: relative; /* For positioning the vertical line */
+    position: relative;
+    flex: auto auto auto;
 }
 
-/* Adding a vertical line between links */
 .nav-links li:not(:last-child)::after {
-    content: ''; /* Empty content for the pseudo-element */
+    content: '';
+    /* Empty content for the pseudo-element */
     position: absolute;
-    right: -15px; /* Position it just to the right of the list item */
+    right: -15px;
+    /* Position it just to the right of the list item */
     top: 0;
     bottom: 0;
-    border-right: 2px solid #fff; /* White vertical line */
+    border-right: 2px solid #fff;
+    /* White vertical line */
 }
 
 /* Styling for the links */
 .nav-links a {
-    color: #fff; /* White text for links */
-    text-decoration: none; /* Remove underline */
-    font-weight: bold;
-    transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease; /* Smooth transition for hover effects */
+    color: #fafafa;
+    position: relative;
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.nav-links a:hover {
-    color: #00b894; /* Subtle neon green color */
-    transform: scale(1.1); /* Slightly increase size on hover */
-    text-shadow: 0 0 3px #00b894, 0 0 6px #00b894, 0 0 9px #00b894, 0 0 12px #00b894; /* Subtle neon glow */
-    animation: neonGlow 1s infinite alternate; /* Neon glow animation */
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 4px;
+    background-color: #a4f76d;
+    top: 25px;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .3s ease-in-out;
 }
+
+.nav-links a:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
 
 /* Responsive Design: Ensuring good view on mobile devices */
 @media (max-width: 768px) {
     .nav-links {
-        width: 90%; /* Decrease width on smaller screens */
-        flex-direction: column; /* Stack the links vertically */
-        gap: 20px; /* Adjust the space between links */
-        animation: fadeIn 1.5s ease-out; /* Fade-in effect for mobile */
+        width: 90%;
+        /* Decrease width on smaller screens */
+        flex-direction: column;
+        /* Stack the links vertically */
+        gap: 20px;
+        /* Adjust the space between links */
+        animation: fadeIn 1.5s ease-out;
+        /* Fade-in effect for mobile */
     }
 
     .nav-links ul {
-        display: block; /* Stack the list items */
-        text-align: center; /* Center the links */
+        display: block;
+        /* Stack the list items */
+        text-align: center;
+        /* Center the links */
     }
 
     /* Remove the vertical line on smaller screens */

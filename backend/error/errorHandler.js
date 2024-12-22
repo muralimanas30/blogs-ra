@@ -1,6 +1,11 @@
 const CustomError = require('./CustomError')
 const { StatusCodes } = require('http-status-codes');
 
+/* -------------------------------------------------------------------------- */
+/*             COMMON ERROR HANDLER MIDDLEWARE FOR ENTIRE BACKEND             */
+/* -------------------------------------------------------------------------- */
+
+
 const errorHandler = (err, req, res, next) => {
     console.log(err)
     if (err.name === 'ValidationError') {
@@ -11,7 +16,7 @@ const errorHandler = (err, req, res, next) => {
     }
 
     if (err instanceof CustomError) {
-        return res.status(err.statusCode).json({
+        return res.status(err.statusCode||500).json({
             message: err.message,
         });
     }

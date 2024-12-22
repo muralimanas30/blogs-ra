@@ -1,84 +1,107 @@
 import React, { useState, useCallback } from 'react'; // Use memoized callback to prevent unnecessary re-renders
 import './Register.css';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../../context/AuthContext';
-import { FaGoogle, FaApple } from 'react-icons/fa';
-import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios'; // For API requests
+import { Link, useNavigate } from 'react-router-dom'; // Routing utilities
+import { useAuthContext } from '../../context/AuthContext'; // Auth context for managing login state
+import { FaGoogle, FaApple } from 'react-icons/fa'; // Icons
+import { useGoogleLogin } from '@react-oauth/google'; // Google login hook
 
 const Register = () => {
-    // State to manage input values and error messages
-    const [username, setUsername] = useState(''); // Added username state
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate(); // Hook to navigate between routes
-    const { login } = useAuthContext(); // Use the login function from AuthContext
+    const { login, backend_domain, createAccount } = useAuthContext(); // Context for login and backend domain
+    const [username, setUsername] = useState(''); // Username state
+    const [email, setEmail] = useState(''); // Email state
+    const [password, setPassword] = useState(''); // Password state
+    const [confirmPassword, setConfirmPassword] = useState(''); // Confirm password state
+    const [errorMessage, setErrorMessage] = useState(''); // Error message state
+    const [isLoading, setIsLoading] = useState(false); // Loading state for form submission
+    const navigate = useNavigate(); // Hook for navigation
 
-    // Memoized handleSubmit to avoid unnecessary re-renders
+    /**
+     * Creates an account using the backend API and the provided authentication token.
+     * @param {string} authToken - The authentication token.
+     * @returns {Promise<object>} The account creation response.
+     */
+
+
+    /**
+     * Handles Google login and account creation.
+     */
     const registerWithGoogle = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
             try {
-
-                // Pass the ID Token to the backend
-                const res = await axios.post('http://localhost:3000/api/v1/auth/google/callback', {
+                // Send Google token to the backend for authentication
+                const res = await axios.post(`${backend_domain}/api/v1/auth/google/callback`, {
                     token: tokenResponse.access_token, // ID Token from Google response
                 });
-                console.log('Backend Response:', res.data);
+
+                console.log('Backend Response:', res.data); // Log backend response
                 const { token, user } = res.data;
-    
-                // Save token and user info
-                localStorage.setItem('user', JSON.stringify(user));
-                localStorage.setItem('token', token);
-                login(token);
-                navigate('/home'); // Navigate to home on success
+
+                // Save token and user info in session storage and context
+                login(token, user); // Update AuthContext login state
+
+                // Create an account using the backend API
+                createAccount(token)// Save account info in session storage
+                navigate('/home'); // Navigate to home page
             } catch (error) {
-                console.error("Error logging in with Google:", error.response?.data || error.message);
+                console.error('Error logging in with Google:', error.response?.data || error.message); // Log error
                 setErrorMessage('Google login failed. Please try again.');
             }
         },
         onError: (error) => {
-            console.error('Google login error:', error);
+            console.error('Google login error:', error); // Log Google login error
             setErrorMessage('Google login error. Please try again.');
         },
     });
 
-    const handleSubmit = useCallback(async (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
-        setIsLoading(true); // Set loading state to true while the request is being made
-        setErrorMessage(''); // Clear previous error messages
+    /**
+     * Handles form submission for user registration.
+     */
+    const handleSubmit = useCallback(
+        async (e) => {
+            e.preventDefault(); // Prevent default form submission
+            setIsLoading(true); // Show loading state
+            setErrorMessage(''); // Clear any previous errors
 
-        if (password !== confirmPassword) {
-            setErrorMessage("Passwords do not match.");
-            setIsLoading(false);
-            return;
-        }
+            if (password !== confirmPassword) {
+                setErrorMessage("Passwords do not match."); // Show password mismatch error
+                setIsLoading(false); // Reset loading state
+                return;
+            }
 
-        try {
-            // Make the API request to register the user
-            const response = await axios.post('http://localhost:3000/api/v1/auth/register', { name:username, email, password });
+            try {
+                // Register user with the backend API
+                const response = await axios.post(`${backend_domain}/api/v1/auth/register`, {
+                    name: username,
+                    email,
+                    password,
+                });
 
-            const { user, token, message } = response.data; // Destructure response from backend
+                const { user, token, message } = response.data; // Destructure response data
+                console.log('Registration successful:', message); // Log success message
 
-            // Store the token and user data in localStorage and in AuthContext
-            login(token); // Store token in AuthContext
-            localStorage.setItem('user', JSON.stringify(user)); // Store user data in localStorage
+                // Store token and user data
+                login(token, user); // Update AuthContext login state
 
-            console.log('Registration successful:', message); // Log success message
-            navigate('/home');  // Redirect to home page after successful registration
-        } catch (err) {
-            // Handle any error from the API request
-            console.log(err.response?.data?.message || err);
-            setErrorMessage(err.response?.data?.message || 'Registration failed. Please try again.');
-        } finally {
-            setIsLoading(false); // Reset loading state once the request is done
-        }
-    }, [username, email, password, confirmPassword, login, navigate]);
+
+                // Create account after successful registration
+                createAccount(token)// Save account info
+                navigate('/home'); // Redirect to home page
+            } catch (err) {
+                console.error(err.response?.data?.message || err); // Log registration error
+                setErrorMessage(err.response?.data?.message || 'Registration failed. Please try again.');
+            } finally {
+                setIsLoading(false); // Reset loading state
+            }
+        },
+        [username, email, password, confirmPassword, login, navigate, createAccount, backend_domain]
+    );
 
     return (
         <div className="register-container-content">
+            <Link to="/" className='login-back-home'>
+                ⬅️
+            </Link>
             <h1 className="company-name">BlogsRa</h1>
             {/* Display error message if there's any */}
             {errorMessage && <div className="error-message">{errorMessage}</div>}
@@ -106,6 +129,7 @@ const Register = () => {
                         onChange={(e) => setUsername(e.target.value)} // Update username state
                         placeholder="Enter your username"
                         required
+                        autoFocus
                     />
                 </div>
 

@@ -1,23 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=REM:ital,wght@0,100..900;1,100..900&display=swap');
 #root {
   margin: 0 auto;
-  background-color: rgb(31, 31, 31);
   color: whitesmoke;
   min-height: 100vh;
+  background: linear-gradient(45deg, #161616, #002941, #1a1a40, #161616, #1e1a3b);
+  background-size: 300% 300%; /* Large size for smooth animation */
+  animation: gradientAnimation 8s ease infinite; /* Infinite animation */
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%; /* Slide to the other side */
+  }
+  100% {
+    background-position: 0% 50%; /* Reset to start */
+  }
 }
 /* App Container */
 .app-container {
+  font-family: "REM";
   width: 95%;
   margin: 0 auto;
   padding: 20px;
-  background: linear-gradient(135deg, rgba(45, 45, 45, 0.9) 0%, rgba(25, 25, 25, 0.9) 100%);
   border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  transition: box-shadow 0.3s ease-in-out;
+  background: transparent;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 /* Mobile Responsiveness */
@@ -30,21 +49,53 @@
   }
 }
 
-/* App Container Background Animation */
-@keyframes backgroundAnimation {
-  0% {
-    background: linear-gradient(135deg, rgba(45, 45, 45, 0.9) 0%, rgba(25, 25, 25, 0.9) 100%);
-  }
-  50% {
-    background: linear-gradient(135deg, rgba(40, 40, 40, 0.8) 0%, rgba(35, 35, 35, 0.8) 100%);
-  }
-  100% {
-    background: linear-gradient(135deg, rgba(45, 45, 45, 0.9) 0%, rgba(25, 25, 25, 0.9) 100%);
-  }
+
+
+@keyframes STAR-MOVE {
+	from {
+    left: 0;
+    top: 0;
+    
+}
+	to {
+    left: -10000px;
+    top: -2000px;
+}
 }
 
-.app-container {
-  animation: backgroundAnimation 10s infinite alternate;
+#background {
+  background: transparent  repeat 5% 5%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -10;
+  -webkit-animation: STAR-MOVE 200s linear infinite;
+  animation: STAR-MOVE 200s linear infinite;
 }
 
+#midground {
+  background: url('./assets/midground.png') repeat 14% 14%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -10;
+  opacity: 0.3;
+  -webkit-animation: STAR-MOVE 150s linear infinite;
+  animation: STAR-MOVE 150s linear infinite;
+}
 
+#foreground {
+  background: url('./assets/foreground.png') repeat 20% 20%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -10;
+  -webkit-animation: STAR-MOVE 100s linear infinite;
+  animation: STAR-MOVE 100s linear infinite;
+}

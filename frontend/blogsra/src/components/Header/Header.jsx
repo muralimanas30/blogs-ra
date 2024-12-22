@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { FaUser, FaBell } from 'react-icons/fa';
 import { BsFillSunFill, BsFillMoonStarsFill } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
 import DropDown from '../DropDown/DropDown';
 import './Header.css';
 import { useAuthContext } from '../../context/AuthContext';
 
 const Header = () => {
-    const { authToken } = useAuthContext
+    const { authToken } = useAuthContext()
     const [isDarkMode, setIsDarkMode] = useState(false); // State for dark mode
     const [showDropDown, setShowDropDown] = useState(false); // State for dropdown visibility
     const [dropDownPosition, setDropDownPosition] = useState({ top: 0, left: 0 }); // Position of the dropdown
     const [dropdownItems, setDropdownItems] = useState([]); // Items to display in the dropdown
 
-    const navigate = useNavigate(); // Hook for navigation
+    const logoRef = useRef(null); // Reference to the logo element
+
 
     // Dictionary holding dropdown items for each icon type
     const dropdownItemsDict = useMemo(() => ({
@@ -21,7 +22,6 @@ const Header = () => {
         bell: ['Notifications', 'Settings'],
         theme: isDarkMode ? ['Light Mode'] : ['Dark Mode'],
     }), [isDarkMode]);
-
     // Effect to check for saved theme in local storage
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme');
@@ -65,25 +65,29 @@ const Header = () => {
     return (
         <>
             <header className={`header-container ${isDarkMode ? 'dark-mode' : ''}`}>
-                <h1 className='blogsra-logo'>BlogsRa</h1>
+                {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#00cba9" fillOpacity="1" d="M0,32L120,58.7C240,85,480,139,720,165.3C960,192,1200,192,1320,192L1440,192L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path></svg> */}
+                <h1 ref={logoRef} className='blogsra-logo' id='blogaraLogo'>BlogsRa</h1>
                 <div className="icons">
                     {/* User Icon with dropdown */}
-                    <div
-                        className="user"
-                        onClick={(e) => handleIconClick('user', e)} // Show dropdown for user options
-                    >
-                        <FaUser />
-                    </div>
+                    {authToken == null ? null : <>
+                        <div
+                            className="user"
+                            onClick={(e) => handleIconClick('user', e)} // Show dropdown for user options
+                        >
+                            <FaUser />
+                        </div>
 
-                    {/* Notification Icon with dropdown */}
-                    <div
-                        className="notification"
-                        onClick={(e) => handleIconClick('bell', e)} // Show dropdown for notification options
-                    >
-                        <FaBell />
-                        <div className="notification-dot"></div>
-                    </div>
+                        {/* Notification Icon with dropdown */}
+                        <div
+                            className="notification"
+                            onClick={(e) => handleIconClick('bell', e)} // Show dropdown for notification options
+                        >
+                            <FaBell />
+                            <div className="notification-dot"></div>
+                        </div>
 
+                    </>
+                    }
                     {/* Theme Toggle Icon */}
                     <div
                         className="theme"
@@ -93,7 +97,7 @@ const Header = () => {
                     </div>
                 </div>
             </header>
-            <hr />
+
             {/* Render the dropdown only when showDropDown is true */}
             {showDropDown && (
                 <DropDown
@@ -103,6 +107,7 @@ const Header = () => {
                     onMouseLeave={() => setShowDropDown(false)} // Hide dropdown when leaving
                 />
             )}
+
         </>
     );
 };

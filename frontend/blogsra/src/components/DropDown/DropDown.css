@@ -5,9 +5,9 @@
     justify-content: center;
     align-items: center;
     
-    background-color: #fff; /* White background */
+    background-color: #ffffff; /* White background */
     border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a floating effect */
+    box-shadow: 0 4px 8px rgba(121, 121, 121, 0.1); /* Subtle shadow for a floating effect */
     width: 150px; /* Set a fixed width for the dropdown */
     z-index: 10;
 
@@ -40,18 +40,6 @@
     background-color: #ddd; /* Slightly darker gray when clicked */
 }
 
-/* Arrow or triangle for dropdown (optional) */
-.drop-down::after {
-    content: '';
-    position: absolute;
-    top: -8px; /* Position the arrow above the dropdown */
-    right: 15px; /* Align the arrow with the right edge */
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 8px solid #fff; /* White arrow color */
-}
 
 /* Optional: For an animated transition of the dropdown appearing/disappearing */
 .drop-down-enter {

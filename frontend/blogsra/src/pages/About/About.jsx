@@ -67,13 +67,13 @@ const AboutUs = () => {
                     <h2>Meet Our Team</h2>
                     <div className="team-members">
                         <div className="team-member">
-                            <img src="https://via.placeholder.com/150" alt="Founder" />
-                            <h3>John Doe</h3>
+                            <img src="https://wallpaperaccess.com/full/2230766.jpg" alt="Founder" />
+                            <h3>MURALI MANAS</h3>
                             <p>Founder & CEO</p>
                         </div>
                         <div className="team-member">
-                            <img src="https://via.placeholder.com/150" alt="Co-Founder" />
-                            <h3>Jane Smith</h3>
+                            <img src="https://i.ndtvimg.com/mt/cooks/2014-09/modi-new-med.jpg" alt="Co-Founder" />
+                            <h3>BRS</h3>
                             <p>Co-Founder & CTO</p>
                         </div>
                         {/* Add more team members as needed */}
@@ -86,9 +86,9 @@ const AboutUs = () => {
                 <div className="container">
                     <h2>Our Vision for the Future</h2>
                     <p>
-                        We are committed to shaping the future by staying ahead of trends, innovating at the cutting edge, and building a legacy that will stand the test of time.
+                        We are committed to shaping the future by staying ahead of trends, innovating at the cutting edge, and building a legacy that will stand the test of time. <br />(Only God Knows where were headed)
                     </p>
-                    <button className="cta-button">Partner With Us</button>
+                    <button className="cta-button">Partner With Us (downfall)</button>
                 </div>
             </section>
 

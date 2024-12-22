@@ -13,6 +13,8 @@ import Login from './pages/Login/LoginPage'
 import Register from './pages/Register/RegisterPage'
 import './App.css'
 import './index.css'
+import NotFound from './pages/NotFound/NotFound';
+import AccountPage from './pages/AccountPage/AccountPage';
 const Loader = () => {
   return <div className="loader">Loading...</div>;
 };
@@ -24,15 +26,18 @@ const App = () => {
       path: "/",
       element: (
         <div className='app-container'>
+                      {/* <div id="background"></div>
+            <div id="midground"></div>
+            <div id="foreground"></div> */}
           <Header />
           <Navbar />
-          <Outlet/>
+          <Outlet />
           <Footer />
         </div>
       ),
       children: [
         {
-          index:true,
+          index: true,
           // path:'/home',
           element: <Home />,
         },
@@ -44,24 +49,28 @@ const App = () => {
           path: "/contact-us",
           element: <ContactUs />,
         },
+        {
+          path: "/account",
+          element: <AccountPage/>
+        },
 
         {
           path: "*",
-          element: <h2>Error: Page Not Found</h2>,
+          element: <NotFound />,
         },
       ],
     },
     {
       path: "/login",
-      element: <Login/>
+      element: <Login />
     },
     {
       path: "/register",
-      element: <Register/>
+      element: <Register />
     },
     {
-      path:'/google/callback',
-      element:<GoogleCallback/>
+      path: '/google/callback',
+      element: <GoogleCallback />
     }
   ]);
 

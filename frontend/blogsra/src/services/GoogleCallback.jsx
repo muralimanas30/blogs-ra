@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useAuthContext } from '../context/AuthContext';
 
 const GoogleCallback = () => {
     const navigate = useNavigate();
-
+    const {backend_domain} = useAuthContext()
     useEffect(() => {
         // Extract the token from the URL (you might need to parse the URL fragment for the token)
         const urlParams = new URLSearchParams(window.location.search);
@@ -12,7 +13,7 @@ const GoogleCallback = () => {
 
         if (token) {
             // Send the token to the backend
-            axios.post('http://localhost:3000/api/v1/auth/google/callback', { token })
+            axios.post(`${backend_domain}/api/v1/auth/google/callback`, { token })
                 .then((response) => {
                     // Store token and user in localStorage
                     const { token, user } = response.data;

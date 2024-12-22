@@ -12,8 +12,7 @@ const DropDown = forwardRef(({ items, position, onMouseEnter, onMouseLeave }, re
     const handleClick = (item) => {
         if (item.toLowerCase() === 'logout') {
             logout(); // Perform logout action
-            navigate('/'); // Navigate to the login page or home page
-            window.location.reload();
+        
         } else if(item.toLowerCase() === 'login'){
             navigate('/login')
         }
@@ -29,7 +28,7 @@ const DropDown = forwardRef(({ items, position, onMouseEnter, onMouseLeave }, re
             style={{
                 top: `${position.top}px`,
                 left: `${position.left}px`,
-                transform:`translate(-45%,20%)`
+                transform:`translate(-60%,40%)`
             }}
             onMouseEnter={onMouseEnter} // Keep the dropdown open when hovering over it
             onMouseLeave={onMouseLeave} // Hide dropdown when leaving

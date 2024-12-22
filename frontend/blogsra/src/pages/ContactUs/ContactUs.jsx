@@ -1,12 +1,18 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import './ContactUs.css'; // Import the styles
+import { useAuthContext } from '../../context/AuthContext';
+import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for Toastify
 
 const ContactUs = () => {
+    const { backend_domain } = useAuthContext();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         message: ''
     });
+    const [loading, setLoading] = useState(false); // State for loading
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -16,16 +22,48 @@ const ContactUs = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert('Your message has been sent!');
-        // Reset form after submission
-        setFormData({ name: '', email: '', message: '' });
+
+        // Set loading state to true when submitting
+        setLoading(true);
+
+        try {
+            // Send the POST request to the backend API
+            const response = await axios.post(`${backend_domain}/api/v1/contact`, formData);
+            
+            // Check if the response is successful
+            if (response.status === 200 || response.status === 201) {
+                // Show success toast notification only if the response is successful
+                toast.success('Your message has been sent successfully!');
+
+                // Reset the form data state after successful submission
+                setFormData({ name: '', email: '', message: '' });
+            } else {
+                // If the status is not successful, show an error toast
+                toast.error('Something went wrong. Please try again later.');
+            }
+        } catch (error) {
+            // Handle any errors here, such as network issues
+            console.error('Error sending message:', error.response?.data || error.message);
+
+            // Show error toast notification
+            toast.error('Something went wrong. Please try again later.');
+        } finally {
+            // Reset loading state after the request is completed
+            setLoading(false);
+        }
     };
 
     return (
         <div className="contact-us">
-            {/* Contact Us Section */}
+            {/* Loading overlay */}
+            {loading && (
+                <div className="loading-overlay">
+                    <div className="spinner"></div>
+                </div>
+            )}
+
             <section className="contact-section">
                 <div className="container">
                     <h2>Contact Us</h2>
@@ -42,6 +80,7 @@ const ContactUs = () => {
                                 onChange={handleChange}
                                 required
                                 placeholder="Enter your name"
+                                disabled={loading} // Disable inputs when loading
                             />
                         </div>
 
@@ -55,6 +94,7 @@ const ContactUs = () => {
                                 onChange={handleChange}
                                 required
                                 placeholder="Enter your email"
+                                disabled={loading} // Disable inputs when loading
                             />
                         </div>
 
@@ -67,15 +107,19 @@ const ContactUs = () => {
                                 onChange={handleChange}
                                 required
                                 placeholder="Write your message here"
+                                disabled={loading} // Disable inputs when loading
                             ></textarea>
                         </div>
 
-                        <button type="submit" className="submit-button">Send Message</button>
+                        <button type="submit" className="submit-button" disabled={loading}>Send Message</button>
                     </form>
                 </div>
             </section>
+
+            {/* Toast Container (needed to show toasts) */}
+            <ToastContainer position="top-center" autoClose={3000} hideProgressBar newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
         </div>
     );
-}
+};
 
 export default ContactUs;
