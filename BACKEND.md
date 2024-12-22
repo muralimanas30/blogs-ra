@@ -28,11 +28,12 @@ This project provides an API for user authentication and management. It allows u
    ```
 
    YOULL NEED ALL THESE MODULES INSTALLED 
-      ├── @types/dotenv@6.1.1
-      ├── @types/express-rate-limit@5.1.3
-      ├── @types/express@5.0.0
-      ├── @types/node@22.10.1
-      ├── axios@1.7.8
+   
+      ├── @types/dotenv@6.1.1 
+      ├── @types/express-rate-limit@5.1.3 
+      ├── @types/express@5.0.0  
+      ├── @types/node@22.10.1 
+      ├── axios@1.7.8 
       ├── bcrypt@5.1.1
       ├── cors@2.8.5
       ├── dotenv@16.4.5
