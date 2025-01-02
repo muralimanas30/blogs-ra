@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Blogs from '../../components/Blogs/Blogs';
@@ -5,12 +6,16 @@ import HomeSearchBox from '../../components/SearchBox/SearchBox';
 import { useAuthContext } from '../../context/AuthContext';
 import './Home.css'
 const Home = () => {
-    const { authToken } = useAuthContext();
+    const { authToken,IP,getIP } = useAuthContext();
+    useEffect(() => {
+        // If IP is already set, do nothing
+        if (Object.keys(IP).length === 0) {
+          getIP();  // Fetch the IP only if it's empty
+        }
+      }, [IP]);  // This effect runs only when IP changes
     const navigate = useNavigate();
-
     return (
         <>
-
             <div className="home-container">
                 {authToken ? (
                     <>

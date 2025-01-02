@@ -1,7 +1,25 @@
 import React from 'react';
 import './AreYouSure.css'
 import PropTypes from 'prop-types'
+import { useAuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 const AreYouSure = ({ setShowConfirm, setShowTakePassword }) => {
+    const {user,authToken,deleteAccount} = useAuthContext()
+    const navigate = useNavigate()
+    const handleConfirm = async()=>{
+        setShowConfirm(false)
+        if(user.byOAuth){
+            const shouldDelete = await deleteAccount(authToken)
+            if(shouldDelete){
+                toast.success('Account Deleted')
+                navigate('/')
+            }
+        }
+        else{
+            setShowTakePassword(true)
+        }
+    }
     return (
         <div className="confirm-box-container__are-you-sure">
             <div className="confirm-box__icon-container">
@@ -25,10 +43,7 @@ const AreYouSure = ({ setShowConfirm, setShowTakePassword }) => {
             <div className="confirm-box__button-container">
                 <button className="confirm-box__cancel-button" onClick={()=>setShowConfirm(false)}>Cancel</button>
                 <button className="confirm-box__confirm-button" onClick={
-                    ()=>{
-                        setShowConfirm(false)
-                        setShowTakePassword(true)
-                    }}>Confirm</button>
+                    ()=>{handleConfirm()}}>Confirm</button>
             </div>
         </div>
     );

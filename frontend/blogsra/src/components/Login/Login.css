@@ -1,281 +1,357 @@
 .company-name {
-    font-size: 16px;
-    /* Reduced font size for company name */
-    font-weight: bold;
-    color: #ffffff;
-    text-align: center;
-    margin-bottom: 8px;
-    /* Reduced space below the company name */
-    letter-spacing: 1px;
-    /* Slightly reduced letter spacing */
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(45deg, white, skyblue);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-animation: moveGradient 2s ease infinite alternate-reverse forwards;
-    animation: moveGradient 2s ease infinite alternate-reverse forwards;
+  font-size: 16px;
+  /* Reduced font size for company name */
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 8px;
+  /* Reduced space below the company name */
+  letter-spacing: 1px;
+  /* Slightly reduced letter spacing */
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(45deg, white, skyblue);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-animation: moveGradient 2s ease infinite alternate-reverse forwards;
+  animation: moveGradient 2s ease infinite alternate-reverse forwards;
 }
 
 /* Keyframes for gradient movement */
 @keyframes moveGradient {
-    0% {
-        background-position: 0% 0%;
-    }
+  0% {
+    background-position: 0% 0%;
+  }
 
-    100% {
-        background-position: 100% 100%;
-    }
+  100% {
+    background-position: 100% 100%;
+  }
 }
 
 /* Container */
 .register-container-content,
 .login-container-content {
-    border: 2px solid rgb(101, 137, 255);
-    max-width: 350px;
-    /* Reduced max-width */
-    margin: 20px auto;
-    /* Reduced margin to bring the container closer to the top */
-    padding: 15px;
-    /* Reduced padding */
-    border-radius: 12px;
-    background: linear-gradient(-135deg, #21006d, rgb(21, 0, 112), #130e0e);
-    background: transparent;
-    -webkit-backdrop-filter:blur(20px) brightness(0.8) ;
-    backdrop-filter: blur(20px) brightness(0.8);
-    /* Subtle gradient */
-    box-sizing: border-box;
-    color: #fff;
-    box-shadow: 0px 8px 20px 2px rgba(156, 224, 255, 0.466);
-    overflow: hidden;
-    -webkit-animation: rotateEffect 0.5s linear forwards;
-    animation: rotateEffect 0.5s linear forwards;
+  border: 2px solid rgb(101, 137, 255);
+  max-width: 350px;
+  /* Reduced max-width */
+  margin: 20px auto;
+  /* Reduced margin to bring the container closer to the top */
+  padding: 15px;
+  /* Reduced padding */
+  border-radius: 12px;
+  background: linear-gradient(-135deg, #21006d, rgb(21, 0, 112), #130e0e);
+  background: transparent;
+  -webkit-backdrop-filter: blur(20px) brightness(0.8);
+  backdrop-filter: blur(20px) brightness(0.8);
+  /* Subtle gradient */
+  box-sizing: border-box;
+  color: #fff;
+  box-shadow: 0px 8px 20px 2px rgba(156, 224, 255, 0.466);
+  overflow: hidden;
+  -webkit-animation: rotateEffect 0.5s linear forwards;
+  animation: rotateEffect 0.5s linear forwards;
 }
 
 /* Keyframe Animation */
 @keyframes rotateEffect {
-    0% {
-        opacity: 0;
-        transform: translate(0px,-25px) rotateY(-90deg);
-        -webkit-transform: translate(0px,-25px) rotateY(-90deg);
-        -moz-transform: translate(0px,-25px) rotateY(-90deg);
-        -ms-transform: translate(0px,-25px) rotateY(-90deg);
-        -o-transform: translate(0px,-25px) rotateY(-90deg);
+  0% {
+    opacity: 0;
+    transform: translate(0px, -25px) rotateY(-90deg);
+    -webkit-transform: translate(0px, -25px) rotateY(-90deg);
+    -moz-transform: translate(0px, -25px) rotateY(-90deg);
+    -ms-transform: translate(0px, -25px) rotateY(-90deg);
+    -o-transform: translate(0px, -25px) rotateY(-90deg);
+  }
+  90% {
+    transform: translate(0px, 7px);
+    -webkit-transform: translate(0px, 7px);
+    -moz-transform: translate(0px, 7px);
+    -ms-transform: translate(0px, 7px);
+    -o-transform: translate(0px, 7px);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(0deg);
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+  }
 }
-    90%{
-        transform: translate(0px,7px);
-        -webkit-transform: translate(0px,7px);
-        -moz-transform: translate(0px,7px);
-        -ms-transform: translate(0px,7px);
-        -o-transform: translate(0px,7px);
-}
-    100% {
-        opacity: 1;
-        transform: rotateY(0deg);
-        -webkit-transform: rotateY(0deg);
-        -moz-transform: rotateY(0deg);
-        -ms-transform: rotateY(0deg);
-        -o-transform: rotateY(0deg);
-    }
-}
-
 
 /* Form Styles */
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    /* Reduced gap between form elements */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* Reduced gap between form elements */
 }
 
 .usrbox,
 .passwordbox {
-    margin-bottom: 12px;
-    /* Reduced margin for form sections */
+  margin-bottom: 12px;
+  /* Reduced margin for form sections */
 }
 
 label {
-    font-size: 12px;
-    font-weight: bold;
-    color: #f0f0f0;
+  font-size: 12px;
+  font-weight: bold;
+  color: #f0f0f0;
 }
 
 input {
-    padding: 6px;
-    /* Reduced padding for inputs */
-    font-size: 13px;
-    /* Reduced font size for inputs */
-    border: 1px solid #555;
-    border-radius: 8px;
-    margin-top: 5px;
-    width: 100%;
-    background-color: #2b2b3d;
-    color: #fff;
-    transition: all 0.3s ease;
+  padding: 6px;
+  /* Reduced padding for inputs */
+  font-size: 13px;
+  /* Reduced font size for inputs */
+  border: 1px solid #555;
+  border-radius: 8px;
+  margin-top: 5px;
+  width: 100%;
+  background-color: #2b2b3d;
+  color: #fff;
+  transition: all 0.3s ease;
 }
 
 input:focus {
-    outline: none;
-    border: 1px solid #ff6ec4;
-    box-shadow: 0 0 8px rgba(255, 110, 196, 0.5);
+  outline: none;
+  border: 1px solid #ff6ec4;
+  box-shadow: 0 0 8px rgba(255, 110, 196, 0.5);
 }
 
 /* Buttons */
 button {
-    padding: 8px;
-    /* Reduced padding for buttons */
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 13px;
-    /* Reduced font size for buttons */
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.3s ease;
+  padding: 8px;
+  /* Reduced padding for buttons */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  /* Reduced font size for buttons */
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-    box-shadow: 0 0 12px rgba(0, 123, 255, 0.7);
+  background-color: #0056b3;
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(0, 123, 255, 0.7);
 }
 
 button:disabled {
-    background-color: #b3d1ff;
-    cursor: not-allowed;
+  background-color: #b3d1ff;
+  cursor: not-allowed;
 }
 
 /* Social Buttons */
 .social-login {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    /* Reduced gap between social buttons */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  /* Reduced gap between social buttons */
 }
 
 .google-login,
 .apple-login {
-    padding: 8px;
-    /* Reduced padding for social login buttons */
-    font-size: 13px;
-    /* Smaller font size for social buttons */
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 48%;
-    color: white;
-    transition: all 0.3s ease;
-    text-align: center;
-    max-height: 40px;
+  padding: 8px;
+  /* Reduced padding for social login buttons */
+  font-size: 13px;
+  /* Smaller font size for social buttons */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 48%;
+  color: white;
+  transition: all 0.3s ease;
+  text-align: center;
+  max-height: 40px;
 }
 
 .google-login {
-    background-color: #db4437;
-    /* Google Red */
+  background-color: #db4437;
+  /* Google Red */
 }
 
 .google-login:hover {
-    background-color: #c33b2e;
-    transform: scale(1.05);
-    box-shadow: 0 0 12px rgba(219, 68, 55, 0.7);
+  background-color: #c33b2e;
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(219, 68, 55, 0.7);
 }
 
 .apple-login {
-    background-color: #000000;
-    /* Black for Apple */
+  background-color: #000000;
+  /* Black for Apple */
 }
 
 .apple-login:hover {
-    background-color: #333;
-    transform: scale(1.05);
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+  background-color: #333;
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
 }
 
 /* Divider */
 .divider {
-    border-bottom: 3px solid #7873f5;
-    margin: 12px 0;
+  border-bottom: 3px solid #7873f5;
+  margin: 12px 0;
 }
 
 /* Register Section */
 .register-box,
 .login-box {
-    margin-top: 12px;
-    text-align: center;
+  margin-top: 12px;
+  text-align: center;
 }
 
 .register-box p,
 .login-box p {
-    font-size: 12px;
-    margin: 6px 0;
-    color: #f0f0f0;
+  font-size: 12px;
+  margin: 6px 0;
+  color: #f0f0f0;
 }
 
 .register-button,
 .login-button {
-    padding: 8px;
-    background-color: #1fb642;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-size: 13px;
-    /* Reduced font size for register/login buttons */
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
+  padding: 8px;
+  background-color: #1fb642;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 13px;
+  /* Reduced font size for register/login buttons */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
 }
 
 .register-button:hover,
 .login-button:hover {
-    background-color: #08ff3de7;
-    transform: scale(1.05);
-    box-shadow: 0 0 12px rgba(40, 167, 69, 0.7);
+  background-color: #08ff3de7;
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(40, 167, 69, 0.7);
 }
 
 /* Error Message */
 .error-message {
-    color: #ff6ec4;
-    font-size: 12px;
-    margin-bottom: 8px;
+  color: #ff6ec4;
+  font-size: 12px;
+  margin-bottom: 8px;
 }
 
 /* Forgot Password */
 .forgot-password {
-    text-align: right;
-    font-size: 12px;
-    margin-top: 4px;
+  text-align: right;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 .forgot-password a {
-    color: #7873f5;
-    text-decoration: none;
-    transition: color 0.3s ease;
+  color: #7873f5;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .forgot-password a:hover {
-    color: #ff6ec4;
-    text-decoration: underline;
+  color: #ff6ec4;
+  text-decoration: underline;
 }
 
 /* Responsive Design */
 @media screen and (max-width: 500px) {
+  .register-container-content,
+  .login-container-content {
+    padding: 12px;
+    /* Reduced padding for smaller screens */
+  }
 
-    .register-container-content,
-    .login-container-content {
-        padding: 12px;
-        /* Reduced padding for smaller screens */
-    }
-
-    button,
-    input {
-        font-size: 12px;
-        /* Reduced font size */
-    }
+  button,
+  input {
+    font-size: 12px;
+    /* Reduced font size */
+  }
 }
-.login-back-home{
-    position: absolute;
-    top: 12px;
-    
+.login-back-home {
+  position: absolute;
+  top: 12px;
+}
+
+/* From Uiverse.io by satyamchaudharydev */
+.barspinner {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-100%, -50%);
+}
+
+.barspinner span {
+  position: absolute;
+  top: 50%;
+  left: var(--left);
+  width: 35px;
+  height: 7px;
+  background: #ffff;
+  animation: dominos 1s ease infinite;
+  box-shadow: 2px 2px 3px 0px black;
+}
+
+.barspinner span:nth-child(1) {
+  --left: 80px;
+  animation-delay: 0.125s;
+}
+
+.barspinner span:nth-child(2) {
+  --left: 70px;
+  animation-delay: 0.3s;
+}
+
+.barspinner span:nth-child(3) {
+  left: 60px;
+  animation-delay: 0.425s;
+}
+
+.barspinner span:nth-child(4) {
+  animation-delay: 0.54s;
+  left: 50px;
+}
+
+.barspinner span:nth-child(5) {
+  animation-delay: 0.665s;
+  left: 40px;
+}
+
+.barspinner span:nth-child(6) {
+  animation-delay: 0.79s;
+  left: 30px;
+}
+
+.barspinner span:nth-child(7) {
+  animation-delay: 0.915s;
+  left: 20px;
+}
+
+.barspinner span:nth-child(8) {
+  left: 10px;
+}
+
+@keyframes dominos {
+  50% {
+    opacity: 0.7;
+  }
+
+  75% {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+
+  80% {
+    opacity: 1;
+  }
 }

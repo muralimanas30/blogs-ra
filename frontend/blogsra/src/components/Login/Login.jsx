@@ -74,21 +74,32 @@ const Login = () => {
 
     return (
         <>
-                
+
             <div className="login-container-content">
+                {isLoading ? <div className="barspinner">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div> : null}
+
                 <h1 className="company-name">BlogsRa</h1>
                 <Link to="/" className='login-back-home'>
-                        ⬅️
+                    ⬅️
                 </Link>
                 {/* Display error message if there's any */}
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
 
                 {/* Third-party sign-in buttons */}
                 <div className="social-login">
-                    <button className="google-login" type="button" onClick={loginWithGoogle}>
+                    <button className="google-login" type="button" onClick={loginWithGoogle}  disabled = {isLoading}>
                         Google <FaGoogle />
                     </button>
-                    <button className="apple-login" type="button">
+                    <button className="apple-login" type="button"  disabled = {isLoading}>
                         Apple <FaApple />
                     </button>
                 </div>
@@ -99,7 +110,7 @@ const Login = () => {
                     {/* Email input */}
                     <div className="usrbox">
                         <label htmlFor="email-input">Email</label>
-                        <input
+                        <input disabled = {isLoading}
                             type="email"
                             name="email"
                             value={email}
@@ -113,12 +124,13 @@ const Login = () => {
                     {/* Password input */}
                     <div className="passwordbox">
                         <label htmlFor="password-input">Password</label>
-                        <input
+                        <input disabled = {isLoading}
                             type="password"
                             name="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)} // Update password state
                             placeholder="Enter your password"
+                            minLength="6"
                             required
                         />
                         <p className="forgot-password">

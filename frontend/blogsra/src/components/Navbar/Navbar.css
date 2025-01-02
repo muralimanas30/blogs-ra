@@ -114,6 +114,7 @@
         /* Adjust the space between links */
         animation: fadeIn 1.5s ease-out;
         /* Fade-in effect for mobile */
+        border-bottom: 1px solid whitesmoke;
     }
 
     .nav-links ul {
@@ -122,9 +123,13 @@
         text-align: center;
         /* Center the links */
     }
+    .nav-links ul li{
+        padding: 5px 0;
+    }
 
     /* Remove the vertical line on smaller screens */
     .nav-links li:not(:last-child)::after {
         display: none;
     }
+    
 }

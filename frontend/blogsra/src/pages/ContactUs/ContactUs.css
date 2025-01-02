@@ -7,8 +7,11 @@
 /* Contact Us Section */
 .contact-section {
     position: relative;
-    background:linear-gradient(rgba(0,0,0,0.719),rgba(255,255,255,0.137),rgba(1,42,88,0.397)),/*Softbluegradient*/url('https://www.teahub.io/photos/full/48-486428_about-contact-us-wallpaper-hd.jpg') no-repeat center center/cover;
-    /*Beautifulbackgroundimage*/text-align: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.719), rgba(255, 255, 255, 0.137), rgba(1, 42, 88, 0.397)),
+        /*Softbluegradient*/
+        url('https://www.teahub.io/photos/full/48-486428_about-contact-us-wallpaper-hd.jpg') no-repeat center center/cover;
+    /*Beautifulbackgroundimage*/
+    text-align: center;
     padding: 25px 0;
     color: #fff;
     border-radius: 10px;
@@ -16,31 +19,34 @@
     border-right: 2px solid white;
     -webkit-animation: homeFadeIn 0.4s linear forwards;
     animation: homeFadeIn 0.4s linear forwards;
-    -webkit-filter:brightness(1.2);
-    filter:brightness(1.2);
-    /*foranimation*/opacity: 0;
-    -webkit-transform: translate(0,-10%);
-    -moz-transform: translate(0,-10%);
-    -ms-transform: translate(0,-10%);
-    -o-transform: translate(0,-10%);
-    transform: translate(0,-10%);
-    animation-timeline:scroll(0%,0%);
+    -webkit-filter: brightness(1.2);
+    filter: brightness(1.2);
+    /*foranimation*/
+    opacity: 0;
+    -webkit-transform: translate(0, -10%);
+    -moz-transform: translate(0, -10%);
+    -ms-transform: translate(0, -10%);
+    -o-transform: translate(0, -10%);
+    transform: translate(0, -10%);
+    animation-timeline: scroll(0%, 0%);
 }
+
 @keyframes contactFadeIn {
-    to{
+    to {
         opacity: 1;
-        -webkit-transform: translate(0%,0%);
-        -moz-transform: translate(0%,0%);
-        -ms-transform: translate(0%,0%);
-        -o-transform: translate(0%,0%);
-        transform: translate(0%,0%);
+        -webkit-transform: translate(0%, 0%);
+        -moz-transform: translate(0%, 0%);
+        -ms-transform: translate(0%, 0%);
+        -o-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+    }
 }
-}
+
 .contact-section h2 {
     font-size: 3em;
     margin-bottom: 20px;
     color: #fff;
-    
+
     /* text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); */
     /* Soft cyan glow for the heading */
 }
@@ -60,13 +66,16 @@
     max-width: 600px;
     margin: 0 auto;
     background-color: rgba(255, 255, 255, 0.8);
-    /*Lighttransparentbackground*/padding: 30px;
+    /*Lighttransparentbackground*/
+    padding: 30px;
     border-radius: 10px;
     border: 2px solid rgba(0, 102, 204, 0.7);
-    /*Softborderinblue*/box-shadow: 0 0 10px rgba(0, 102, 204, 0.3);
+    /*Softborderinblue*/
+    box-shadow: 0 0 10px rgba(0, 102, 204, 0.3);
     -webkit-animation: slideIn 0.5s ease-out;
-    /*Subtleblueglowshadow*/animation: slideIn 0.5s ease-out;
-        
+    /*Subtleblueglowshadow*/
+    animation: slideIn 0.5s ease-out;
+
 }
 
 .form-group {
@@ -131,7 +140,97 @@
     transform: scale(0.98);
     /* Slight shrink effect on click */
 }
+/* Overlay and spinner styles */
 
+/* Success and error message styles */
+
+/* Spinner and loading overlay */
+/* From Uiverse.io by Shoh2008 */
+.loader-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    scale: 2;
+    border-style: solid;
+    box-sizing: border-box;
+    border-width: 40px 60px 30px 60px;
+    border-color: #3760C9 #96DDFC #96DDFC #36BBF7;
+    animation: envFloating 1s ease-in infinite alternate;
+    -webkit-transform: translate(-50%,-50%) scale(2);
+    -moz-transform: translate(-50%,-50%) scale(2);
+    -ms-transform: translate(-50%,-50%) scale(2);
+    -o-transform: translate(-50%,-50%) scale(2);
+    -webkit-animation: envFloating 1s ease-in infinite alternate;
+    
+}
+
+.loader-overlay:after {
+    content: "";
+    position: absolute;
+    right: 62px;
+    top: -40px;
+    height: 70px;
+    width: 50px;
+    background-image: linear-gradient(#42e6dd 45px, transparent 0),
+        linear-gradient(#46e3ee 45px, transparent 0),
+        linear-gradient(#57e6da 45px, transparent 0);
+    background-repeat: no-repeat;
+    background-size: 30px 4px;
+    background-position: 0px 11px, 8px 35px, 0px 60px;
+    animation: envDropping 0.75s linear infinite;
+}
+
+@keyframes envFloating {
+    0% {
+        transform: translate(-2px, -5px)
+    }
+
+    100% {
+        transform: translate(0, 5px)
+    }
+}
+
+@keyframes envDropping {
+    0% {
+        background-position: 100px 11px, 115px 35px, 105px 60px;
+        opacity: 1;
+    }
+
+    50% {
+        background-position: 0px 11px, 20px 35px, 5px 60px;
+    }
+
+    60% {
+        background-position: -30px 11px, 0px 35px, -10px 60px;
+    }
+
+    75%,
+    100% {
+        background-position: -30px 11px, -30px 35px, -30px 60px;
+        opacity: 0;
+    }
+}
+
+/* Spinner animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Disable form elements when loading */
+input:disabled,
+textarea:disabled,
+button:disabled {
+    background-color: #f0f0f0;
+    /* Light gray background for disabled state */
+    cursor: not-allowed;
+}
 /* Animations */
 @keyframes fadeIn {
     0% {
@@ -191,10 +290,16 @@
         font-size: 1em;
         padding: 12px 30px;
     }
+    .loader-overlay{
+        scale: 1.5;
+    }
 }
 
 /* Media Query for Extra Small Screens */
 @media (max-width: 480px) {
+    .loader-overlay{
+        scale: 1;
+    }
     .contact-section h2 {
         font-size: 2em;
         margin-bottom: 10px;
@@ -219,41 +324,4 @@
         padding: 10px 25px;
     }
 }
-/* Overlay and spinner styles */
 
-/* Success and error message styles */
-
-/* Spinner and loading overlay */
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Slight fade */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* Ensure it sits on top of the form */
-}
-
-.spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3); /* Light gray border */
-    border-top: 4px solid #fff; /* White border top */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-}
-
-/* Spinner animation */
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Disable form elements when loading */
-input:disabled, textarea:disabled, button:disabled {
-    background-color: #f0f0f0; /* Light gray background for disabled state */
-    cursor: not-allowed;
-}

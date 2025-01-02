@@ -78,13 +78,6 @@ const Header = () => {
                         </div>
 
                         {/* Notification Icon with dropdown */}
-                        <div
-                            className="notification"
-                            onClick={(e) => handleIconClick('bell', e)} // Show dropdown for notification options
-                        >
-                            <FaBell />
-                            <div className="notification-dot"></div>
-                        </div>
 
                     </>
                     }
@@ -97,6 +90,11 @@ const Header = () => {
                     </div>
                 </div>
             </header>
+            <div className="marquee">
+                <span>First request might take 50 seconds.
+                    Thankyou for your patience
+                </span>
+            </div>
 
             {/* Render the dropdown only when showDropDown is true */}
             {showDropDown && (

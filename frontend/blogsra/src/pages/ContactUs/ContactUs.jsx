@@ -1,16 +1,23 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ContactUs.css'; // Import the styles
 import { useAuthContext } from '../../context/AuthContext';
 import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
 import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for Toastify
 
 const ContactUs = () => {
-    const { backend_domain } = useAuthContext();
+    const { backend_domain,IP,getIP } = useAuthContext();
+    useEffect(() => {
+        // If IP is already set, do nothing
+        if (Object.keys(IP).length === 0) {
+          getIP();  // Fetch the IP only if it's empty
+        }
+      }, [IP, getIP]);  // This effect runs only when IP changes
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        message: ''
+        message: '',
+        ip:IP
     });
     const [loading, setLoading] = useState(false); // State for loading
 
@@ -57,15 +64,15 @@ const ContactUs = () => {
 
     return (
         <div className="contact-us">
-            {/* Loading overlay */}
-            {loading && (
-                <div className="loading-overlay">
-                    <div className="spinner"></div>
-                </div>
-            )}
 
             <section className="contact-section">
                 <div className="container">
+            {/* Loading overlay */}
+            {loading && (
+                <div className="loader-overlay">
+                    
+                </div>
+            )}
                     <h2>Contact Us</h2>
                     <p>We’d love to hear from you! Whether you have a question, feedback, or just want to say hello, feel free to reach out.</p>
 

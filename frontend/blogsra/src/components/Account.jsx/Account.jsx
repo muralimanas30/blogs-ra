@@ -1,105 +1,122 @@
-import { useState, useEffect } from 'react';
-import './Account.css'; 
+import { useState, useEffect, useRef } from 'react';
+import './Account.css';
 import { useAuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import AreYouSure from '../AreYouSure/AreYouSure';
-import CustomPopUp from '../CustomPopUp/CustomPopUp';
+import CustomPopUp from '../CustomPopUp/PasswordPopUp';
+import AccountInfo from './SubComponents/AccountInfo';
+import Notifications from './SubComponents/Notifications';
+import Settings from './SubComponents/Settings';
+import EditBio from './SubComponents/EditBio';
 
 const Account = () => {
+/* -------------------------------------------------------------------------- */
+/*                              NECESSARY STATES                              */
+/* -------------------------------------------------------------------------- */
+
     const navigate = useNavigate();
-    const [accountInfo, setAccountInfo] = useState(null);
     const { createAccount, authToken} = useAuthContext();
     const [showConfirm, setShowConfirm] = useState(false);
     const [showTakePassword, setShowTakePassword] = useState(false);
-    const [loading, setLoading] = useState(false); // Add a loading state
+    const [loading, setLoading] = useState(true);
+    const [activeTab, setActiveTab] = useState('account');
+    const [isEditingBio, setIsEditingBio] = useState(false);
+    const imageRef = useRef(null);
+    const [accountInfo, setAccountInfo ] = useState(JSON.parse(sessionStorage.getItem('accountInfo')))
 
+     /* -------------------------------------------------------------------------- */
+     /*    Fetching account information (either from sessionStorage or from API)   */
+     /* -------------------------------------------------------------------------- */
     useEffect(() => {
+        
+        // If we have data in sessionStorage, we set it directly.
         const storedAccountInfo = sessionStorage.getItem('accountInfo');
-        if (storedAccountInfo) {
+        if (!storedAccountInfo) {
             setAccountInfo(JSON.parse(storedAccountInfo));
-            setLoading(false); // Once the data is fetched, set loading to false
-        } else {
+            setLoading(false);
+        } 
+        // Only fetch account info from API if authToken is available and no data in sessionStorage
+        else if (authToken && !accountInfo) { // Check if accountInfo is already loaded
             const fetchAccountInfo = async () => {
-                if (authToken) {
-                    try {
-                        const data = await createAccount(authToken);
-                            setAccountInfo(data);
-                            sessionStorage.setItem('accountInfo', JSON.stringify(data));
-                            
-                    } catch (error) {
-                        console.log(error);
-                    }
-                    finally{
-                        setLoading(false)
-                    }
+                try {
+                    const data = await createAccount(authToken);
+                    setAccountInfo(data);
+                    sessionStorage.setItem('accountInfo', JSON.stringify(data));
+                } catch (error) {
+                    console.error('Error fetching account info:', error);
+                } finally {
+                    setLoading(false);
                 }
             };
             fetchAccountInfo();
+        } else {
+            setLoading(false); // Stop loading if no authToken and no stored data
         }
-    }, [authToken, createAccount]);
+    }, [authToken, accountInfo, setAccountInfo, createAccount]); // Only trigger if authToken or accountInfo changes
 
-    const handleDeleteAccount = async () => {
-        setShowConfirm(true);
 
-    };
-    
-    const handleBackToHome = () => {
-        navigate('/');
-    };
-    
-    if (!accountInfo) {
-        return <div>Loading...</div>;
-    }
-    
+    /* ------------------------------------ * ----------------------------------- */
+    const handleDeleteAccount = async () => setShowConfirm(true);
 
-    // Display loading state until the account data is fetched
+    const handleBackToHome = () => navigate('/');
+
+    const handleEdit = () => setIsEditingBio(true); 
+
+    const handleCancelEdit = () => setIsEditingBio(false); // Close EditBio modal
     if (loading) {
-        return <div>Loading...</div>;
+        return <div>Loading...</div>; // Loading state until account data is fetched
     }
-
+    
+    /* ----------------------------------- *** ---------------------------------- */
+    /* ----------------------------------- *** ---------------------------------- */
     return (
         <>
-            {showConfirm ? (
-                <AreYouSure setShowConfirm={setShowConfirm} setShowTakePassword={setShowTakePassword} />
-            ) : null}
-            {showTakePassword ? (
-                <CustomPopUp shouldDelete={true} setShowTakePassword={setShowTakePassword} />
-            ) : null}
+            {showConfirm && <AreYouSure setShowConfirm={setShowConfirm} setShowTakePassword={setShowTakePassword} />}
+            {showTakePassword && <CustomPopUp shouldDelete={true} setShowTakePassword={setShowTakePassword} />}
 
             <div className="account-container">
                 <div className="account-header">Your Account Information</div>
-                <div className="account-info">
-                    <div className="info-item">
-                        <strong>Name:</strong> {accountInfo.user?.name || 'N/A'}
+                <div className="account-wrapper-settings-content">
+                    <div className="account-settings">
+                        <div className="account-profile-image">
+                            <img ref={imageRef}
+                                src={accountInfo.user.profilePicture}
+                                alt="Profile"
+                            />
+                        </div>
+                        <div className="account-navigation">
+                            <ul className="account-navigation-ul">
+                                <li className={activeTab === 'account' ? 'active' : ''} onClick={() => setActiveTab('account')}>Account</li>
+                                <li className={activeTab === 'notifications' ? 'active' : ''} onClick={() => setActiveTab('notifications')}>Notifications</li>
+                                <li className={activeTab === 'settings' ? 'active' : ''} onClick={() => setActiveTab('settings')}>Settings</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div className="info-item">
-                        <strong>Email:</strong> {accountInfo.user?.email || 'N/A'}
+
+                    <div className="account-content">
+                        {activeTab === 'account' && <AccountInfo accountInfo={accountInfo} handleEdit={handleEdit} />}
+                        {activeTab === 'notifications' && <Notifications />}
+                        {activeTab === 'settings' && <Settings />}
+
+                        <div className="account-buttons">
+                            <button onClick={handleDeleteAccount} className="delete-button">Delete Account</button>
+                            <button onClick={handleBackToHome} className="back-button">Back to Home</button>
+                        </div>
                     </div>
-                    <div className="info-item">
-                        <strong>Bio:</strong> {accountInfo.user?.bio || 'N/A'}
-                    </div>
-                    <div className="info-item">
-                        <strong>Posts:</strong> {accountInfo.user?.blogStats?.posts || 0}
-                    </div>
-                    <div className="info-item">
-                        <strong>Followers:</strong> {accountInfo.user?.blogStats?.followers || 0}
-                    </div>
-                    <div className="info-item">
-                        <strong>Following:</strong> {accountInfo.user?.blogStats?.following || 0}
-                    </div>
-                    <div className="info-item">
-                        <strong>Joined On:</strong> {new Date(accountInfo.user?.createdAt).toLocaleDateString() || 'N/A'}
-                    </div>
-                </div>
-                <div className="account-buttons">
-                    <button onClick={()=>{handleDeleteAccount()}} className="delete-button">
-                        Delete Account
-                    </button>
-                    <button onClick={handleBackToHome} className="back-button">
-                        Back to Home
-                    </button>
                 </div>
             </div>
+
+            {isEditingBio && (
+                <>
+                    <div className="edit-bio-overlay"></div>
+                    <EditBio
+                        accountInfo={accountInfo}
+                        setAccountInfo={setAccountInfo}
+                        setIsEditingBio={setIsEditingBio}
+                        onCancel={handleCancelEdit}
+                    />
+                </>
+            )}
         </>
     );
 };

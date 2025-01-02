@@ -131,14 +131,14 @@
     border-left: 2px solid rgb(255, 255, 255);
     border-right: 2px solid rgb(255, 255, 255);
     width: 100%;
-    height: 70vh;
+    min-height: 70vh;
     background: url('https://static.vecteezy.com/system/resources/previews/014/293/189/original/natural-landscape-mountain-art-sun-set-free-vector.jpg') no-repeat;
     background-size: cover;
     display: flex;
     justify-content: space-around;
     align-items: center;
     position: relative;
-    padding: 0px 20px;
+    padding: 35px 20px;
     -webkit-border-radius: 2px solid white;
     -moz-border-radius: 2px solid white;
     -ms-border-radius: 2px solid white;

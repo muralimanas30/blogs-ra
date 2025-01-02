@@ -5,7 +5,7 @@ import { useAuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import reducer, { initialState } from './reducer'; // Import reducer
 
-const CustomPopUp = ({ setShowTakePassword }) => {
+const PasswordPopUp = ({ setShowTakePassword }) => {
     const { user, deleteAccount, validatePassword, authToken } = useAuthContext();
     const navigate = useNavigate();
     const [state, dispatch] = useReducer(reducer, initialState); // Using useReducer
@@ -135,8 +135,8 @@ const CustomPopUp = ({ setShowTakePassword }) => {
     );
 };
 
-CustomPopUp.propTypes = {
+PasswordPopUp.propTypes = {
     setShowTakePassword: PropTypes.func.isRequired,
 };
 
-export default CustomPopUp;
+export default PasswordPopUp;
