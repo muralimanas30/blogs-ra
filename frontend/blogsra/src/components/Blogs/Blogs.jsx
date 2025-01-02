@@ -1,13 +1,36 @@
-import React from 'react'
+import React from 'react';
+import './Blogs.css';
 
 const Blogs = () => {
     return (
-        <div>
-            <p>Blogs</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus itaque, totam nulla tenetur, sed porro non numquam velit ab eaque ea neque rerum consequatur molestias exercitationem dolorem inventore ex assumenda officiis unde. Vero nostrum impedit perferendis omnis architecto tempore. Nostrum numquam a quos? Consequuntur odit, nemo recusandae optio temporibus voluptas, aspernatur, iure perferendis voluptate est reiciendis ut aliquid. Qui aliquid aut pariatur, voluptas voluptatum nihil iure voluptatibus aspernatur odit ex beatae harum obcaecati ad modi ut molestias? Illum eveniet iure delectus est neque. Mollitia possimus quo vel dolorum iste odio pariatur, assumenda itaque consequuntur dolor fugiat eveniet ipsam ipsum optio dicta eos sint sequi rerum saepe ducimus? Laudantium, repudiandae fuga minima esse tenetur, sunt eos blanditiis non nemo, excepturi ipsam! Tempore quis possimus tempora dolore. Dolore hic ut inventore consectetur quo in adipisci voluptatum? Reprehenderit minus minima quia expedita ut nihil, voluptates ipsa eligendi dolor unde praesentium amet nulla voluptatibus possimus quae voluptate velit ex impedit vel dolore iste? Quidem commodi voluptate amet quas nulla deleniti aspernatur perspiciatis facere dolores, sunt accusamus perferendis tempora culpa ab maxime itaque alias architecto quo nesciunt nisi maiores ipsam. Doloribus minus maiores eum quam est, in ab dignissimos tenetur, quod beatae repellendus voluptates aliquam!</p>
-            
+        <div className="blog-container">
+            <div className="blog-post">
+                <h2 className="blog-title">The Tranquility of Forests</h2>
+                <p className="blog-content">
+                    Forests are the lungs of our planet, offering a serene escape from the bustling city life. Walking through the towering trees and hearing the whispers of the wind is a truly rejuvenating experience.
+                </p>
+                <img className="blog-image" src="https://via.placeholder.com/400" alt="Forests" />
+            </div>
+            <div className="blog-post">
+                <h2 className="blog-title">Mysteries of the Deep Ocean</h2>
+                <p className="blog-content">
+                    The ocean covers over 70% of the Earths surface, yet much of it remains unexplored. The vibrant marine life and stunning underwater landscapes offer endless fascination.
+                </p>
+                <img className="blog-image" src="https://via.placeholder.com/300" alt="Ocean" />
+            </div>
+            <div className="blog-post">
+                <h2 className="blog-title">Some other random event</h2>
+                <p className="blog-content">The placeholder images are quite helpful , we can get them from https://via.placeholder</p>
+                <img className="blog-image" src="https://via.placeholder.com/300" alt="Mountain Peaks" />
+            </div>
+            <div className="blog-post">
+                <h2 className="blog-title">Sunset Over Rolling Hills</h2>
+                <p className="blog-content">
+                    Theres something magical about watching the sun set over rolling hills. The blend of orange, pink, and purple hues paints the sky in a breathtaking spectacle.
+                </p>
+            </div>
         </div>
-    )
-}
+    );
+};
 
-export default Blogs
+export default Blogs;

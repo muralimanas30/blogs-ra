@@ -56,15 +56,16 @@
     align-items: center;
     justify-content: flex-start;
     margin-top: 20px;
+    max-height: 1000px;
+    overflow: auto;
+    
 }
 
 .home-feed-container-elements {
     width: 100%;
     max-width: 1200px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
     margin-top: 30px;
+    
 }
 
 .home-feed-container-elements .blog {
