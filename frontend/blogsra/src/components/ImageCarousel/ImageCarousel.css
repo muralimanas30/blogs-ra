@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=REM&display=swap');
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+.slider-container {
+    height: 600px;
+    /*Fixedheightfortheslider*/width: 100%;
+    padding: 30px;
+    background: linear-gradient(45deg, #161616, #002941, #1a1a40, #161616, #1e1a3b);
+    border-radius:15px ;
+    margin-bottom: 70px;
+    border: 1px solid white;
+    -webkit-animation: contactFadeIn 0.4s linear forwards;
+    animation: contactFadeIn 0.4s linear forwards;
+    -webkit-filter: brightness(1.2);
+    filter: brightness(1.2);
+    /*foranimation*/opacity: 0;
+    -webkit-transform: translate(-10%, 0%);
+    -moz-transform: translate(-10%, 0%);
+    -ms-transform: translate(-10%, 0%);
+    -o-transform: translate(-10%, 0%);
+    transform: translate(-10%, 0%);
+    animation-timeline: scroll(0%, 0%);
+}
+
+@keyframes contactFadeIn {
+    to {
+        opacity: 1;
+        -webkit-transform: translate(0%, 0%);
+        -moz-transform: translate(0%, 0%);
+        -ms-transform: translate(0%, 0%);
+        -o-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+    }
+}
+.carousel-wrapper {
+    display: flex;
+    flex-direction: row; /* Side by side on larger screens */
+    align-items: center; /* Center items vertically */
+}
+
+.image-slider,
+.description-slider {
+    width: 50%; /* Each slider takes 50% of the width */
+    margin-right: auto; /* Space between sliders */
+}
+
+.image-carousel-1-image {
+    max-width: 270px; /* Max width for images */
+    height: auto; /* Maintain aspect ratio */
+    margin: auto; /* Center the image */
+}
+
+.bigFanceText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background: linear-gradient(270deg, #fef8ff, #16cbe7, #f78dd7, #4fc5e2);
+    background-size: 400% 400%;
+    animation: gradientAnimation 4s ease infinite alternate-reverse;
+    color: transparent; /* Text color set to transparent for background clip */
+    -webkit-background-clip: text; /* Clip background to text */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 40%; /* Width for larger screens */
+    padding: 20px; /* Padding for spacing */
+}
+
+.bigFanceText h1 {
+    font-size: 2.5em; /* Font size for the headline */
+    margin-bottom: 10px; /* Space below the headline */
+    font-weight: bold; /* Bold text */
+}
+
+.bigFanceText p {
+    font-size: 1.2em; /* Font size for paragraphs */
+    margin: 5px 0; /* Space between paragraphs */
+    font-weight: 500; /* Medium weight for paragraph text */
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%; /* Start position */
+    }
+    50% {
+        background-position: 100% 50%; /* Mid position */
+    }
+    100% {
+        background-position: 0% 50%; /* End position */
+    }
+}
+
+/* Responsive styles */
+@media screen and (max-width: 800px) {
+    .carousel-wrapper {
+        flex-direction: column; /* Stack sliders on smaller screens */
+        align-items: center; /* Center items */
+    }
+    
+    .image-slider {
+        width: 70vw;
+    }
+
+    .image-carousel-1-image {
+        max-width: 150px;
+        height: auto;
+        padding: 5px;
+    }
+
+    .slider-container {
+        width: 100%;
+        height: fit-content; 
+    }
+
+    .bigFanceText {
+        width: 90%; 
+        padding: 10px;
+    }
+
+    .bigFanceText h1 {
+        font-size: 2em;
+    }
+
+    .bigFanceText p {
+        font-size: 1em;
+    }
+}

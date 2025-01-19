@@ -2,12 +2,15 @@ import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import './CustomPopUp.css';
 import { useAuthContext } from '../../context/AuthContext';
+
+import reducer, { initialState } from './reducer'; 
+import { useAccountContext } from '../../context/AccountContext';
 import { useNavigate } from 'react-router-dom';
-import reducer, { initialState } from './reducer'; // Import reducer
 
 const PasswordPopUp = ({ setShowTakePassword }) => {
-    const { user, deleteAccount, validatePassword, authToken } = useAuthContext();
-    const navigate = useNavigate();
+    const { user, authToken,logout } = useAuthContext();
+    const navigate = useNavigate()    
+    const {deleteAccount,validatePassword} = useAccountContext()
     const [state, dispatch] = useReducer(reducer, initialState); // Using useReducer
 
     const handleSubmit = async () => {
@@ -29,7 +32,8 @@ const PasswordPopUp = ({ setShowTakePassword }) => {
             if (shouldDelete) {
                 dispatch({ type: "SHOULD DELETE" });
                 setShowTakePassword(false);
-                navigate('/');
+                logout()
+                navigate('/')
             } else {
                 alert('Failed to delete account. Please try again.');
             }

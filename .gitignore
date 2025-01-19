@@ -1,4 +1,7 @@
-/node_modules
-/dist
-
-.env
+node_modules
+Preview Pictuers
+dist
+.dist
+.hintrc
+OlympiadPreparation.class
+package-lock.json

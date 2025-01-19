@@ -1,0 +1,78 @@
+
+.home-header-nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+    
+}
+
+.home-header-active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+}
+
+
+
+.spl-btnn {
+    width: 35px;
+    height: 35px;
+    background-color: #b831f7;
+    /*Examplecolor*/display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    
+}
+
+.svg-arrow path {
+    fill: 007bff;
+}
+
+.spl-btn-text {
+    font-size: 0.7em;
+    width: 100px;
+    position: absolute;
+    
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: -40px;
+    opacity: 0;
+    transition-duration: .7s;
+}
+
+.spl-btnn:hover .spl-btn-text {
+    opacity: 1;
+    transition-duration: .7s;
+    filter: drop-shadow(0px 5px 5px rgb(172, 115, 228));
+}
+
+.spl-btnn:hover .svg-arrow {
+    animation: slide-in-bottom .7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@keyframes slide-in-bottom {
+    0% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

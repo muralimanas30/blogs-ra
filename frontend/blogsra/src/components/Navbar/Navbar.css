@@ -51,9 +51,10 @@
     justify-content: center;
     gap: 30px;
     /* Space between each list item */
+    
 }
 
-.nav-links li {
+.nav-links ul li {
     font-size: 16px;
     position: relative;
     flex: auto auto auto;
@@ -81,6 +82,7 @@
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    font-size: 18px;
 }
 
 .nav-links a::before {

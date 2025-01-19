@@ -27,7 +27,6 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  flex-direction: row;
   width: 100%;
   position: relative;
   -webkit-border-radius: 5px;
@@ -38,7 +37,7 @@
   background-color: transparent;
   -webkit-animation: headerSlideIn 0.4s linear;
   animation: headerSlideIn 0.4s linear;
-  margin: 0px 0px 45px 0px;
+  margin-bottom: 30px;
 }
 
 /* Scroll-in animation for header */
@@ -60,7 +59,7 @@
   position: absolute;
 }
 
-/* Icon container styles */
+
 .header-container .icons {
   display: flex;
   justify-content: space-around;
@@ -69,7 +68,6 @@
   width: 20%;
 }
 
-/* Hover effect for icons */
 .header-container .icons > div {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -124,17 +122,11 @@
 
 .blogsra-logo {
   position: relative;
-  font-size: 48px;
-  /*Adjustsizeasneeded*/
+  font-size: 35px;
   font-weight: bold;
   color: #000;
-  /*Fallbacktextcolor*/
   display: inline-block;
-  padding: 10px 20px;
-  /*Addpaddingaroundtext*/
   text-transform: uppercase;
-  /*Optional:;
-        Tomaketextuppercase*/
   font-family: "REM", sans-serif;
   top: 12px;
   z-index: 1;

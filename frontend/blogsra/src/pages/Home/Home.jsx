@@ -1,64 +1,40 @@
-import { useEffect } from 'react';
+import HomeHeader from './Subcomponents/HomeHeader'
+import MainContent from '../../components/MainContent/MainContent';
+import { LoginHero } from '../../components/LoginHero/LoginHero';
+import { useEffect, useState } from 'react';
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import Blogs from '../../components/Blogs/Blogs';
+import { Outlet } from 'react-router-dom';
 import HomeSearchBox from '../../components/SearchBox/SearchBox';
 import { useAuthContext } from '../../context/AuthContext';
 import './Home.css'
+
+
 const Home = () => {
-    const { authToken,IP,getIP } = useAuthContext();
+    const { authToken, IP, getIP } = useAuthContext();
+    const [trending, setTrending] = useState(false)
+    const [tags, setTags] = useState('')
+
     useEffect(() => {
-        // If IP is already set, do nothing
         if (Object.keys(IP).length === 0) {
-          getIP();  // Fetch the IP only if it's empty
+            getIP();
         }
-      }, [IP]);  // This effect runs only when IP changes
-    const navigate = useNavigate();
+    }, [authToken]);
+
     return (
         <>
             <div className="home-container">
                 {authToken ? (
                     <>
-                        <div className="home-header">
-                            <p className="home-heading">Welcome Home!</p>
-                            <div className="home-nav">
-                                <ul className="home-nav-list">
-                                    <li>Latest Feed</li>
-                                    <li>Trending Feed</li>
-                                </ul>
-                            </div>
-                        </div>
-
+                        <HomeHeader feedType={trending} setFeedType={setTrending} tags={tags} setTags={setTags} />
                         <div className="home-feed-container">
-                            <HomeSearchBox />
-                            <div className="home-feed-container-elements">
-                                <Blogs />
-                            </div>
+                            <MainContent trending={trending} liked={false} tags={tags} />
                         </div>
                     </>
                 ) : (
-                    <div className="full-screen-login-prompt">
-                        <lottie-player className='home-hero' src="https://lottie.host/5d7fd1fd-153a-44ca-82a8-3608f7c26f7f/43EZv2r2g3.json" background="##fff" style={{ width: "300px", height: "300px" }} loop autoplay mode="normal"></lottie-player>
-                        <div className="login-prompt-box">
-                            <h2 className="login-heading">Welcome to BlogsRa!</h2>
-                            <p className="login-text">
-                                Unlock access to a world of incredible blogs! By logging in, you can:
-                            </p>
-                            <ul className="login-benefits">
-                                <li>Read the latest articles from a variety of categories</li>
-                                <li>Engage with the community through comments</li>
-                                <li>Save your favorite blogs and share your own content</li>
-                                <li>Get personalized blog recommendations</li>
-                            </ul>
-                            <button className="login-button" onClick={() => navigate('/login')}>Log In Now</button>
-                        </div>
-                    </div>
+                    <LoginHero />
                 )}
             </div>
-
-            {/* Render nested routes if any */}
             <Outlet />
-
         </>
     );
 };

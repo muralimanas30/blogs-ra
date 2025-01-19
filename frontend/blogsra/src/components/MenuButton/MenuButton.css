@@ -1,0 +1,96 @@
+/* From Uiverse.io by Laurits123456 */
+/*pushing a hamburger menu into a pillow texture like background*/
+
+.menuButton {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 13%;
+    color: #090909;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5em;
+    background: #171717;
+    
+    border: 1px solid #171717;
+    transition: all .3s;
+    box-shadow: inset 4px 4px 12px #3a3a3a,        inset -4px -4px 12px #000000;
+    transform:scale(1) translate(0,-50%);
+    -webkit-transform:scale(1) translate(0,-50%);
+    -moz-transform:scale(1) translate(0,-50%);
+    -ms-transform:scale(1) translate(0,-50%);
+    -o-transform:scale(1) translate(0,-50%);
+    cursor: pointer;
+}
+
+.menuButton:hover {
+    border: 1px solid black;
+}
+
+.menuButton:active {
+    color: #666;
+    box-shadow: 6px 6px 12px #3a3a3a,
+        -6px -6px 12px #000000;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    display: none;
+    visibility: hidden;
+}
+
+.menuButton span {
+    width: 30px;
+    height: 4px;
+    background: rgb(200, 200, 200);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+input[type]:checked~span.top1 {
+    transform: translateY(290%)rotate(45deg);
+    width: 40px;
+    background: white;
+    background: linear-gradient(135deg, #ff6a00, #ffcc00);
+}
+
+input[type]:checked~span.bot1 {
+    width: 40px;
+    box-shadow: 0 0 10px #495057;
+    background: white;
+    background: linear-gradient(135deg, #00b4d8, #0077b6); 
+    -moz-transform: translateY(-270%) rotate(-45deg);
+    -ms-transform: translateY(-270%) rotate(-45deg);
+    -o-transform: translateY(-270%) rotate(-45deg);
+    -webkit-transform: translateY(-270%) rotate(-45deg);
+    transform: translateY(-270%) rotate(-45deg);
+}
+
+input[type]:checked~span.mid1 {
+    transform: translateX(-20px);
+    opacity: 0;
+    
+}
+
+@media screen and (max-width:648px) {
+
+    .menuButton{
+        transform: scale(0.8) translate(0,-50%);
+        -webkit-transform: scale(0.8) translate(0,-50%);
+        -moz-transform: scale(0.8) translate(0,-50%);
+        -ms-transform: scale(0.8) translate(0,-50%);
+        -o-transform: scale(0.8) translate(0,-50%);
+}
+}
+
+@media screen and (max-width:350px) {
+    .menuButton{
+        transform: scale(0.6) translate(0,-50%);
+        -webkit-transform: scale(0.6) translate(0,-50%);
+        -moz-transform: scale(0.6) translate(0,-50%);
+        -ms-transform: scale(0.6) translate(0,-50%);
+        -o-transform: scale(0.6) translate(0,-50%);
+}
+}

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuthContext } from '../context/AuthContext';
+import Loader from '../components/Loader/Loader';
 
 const GoogleCallback = () => {
     const navigate = useNavigate();
@@ -15,10 +16,10 @@ const GoogleCallback = () => {
             // Send the token to the backend
             axios.post(`${backend_domain}/api/v1/auth/google/callback`, { token })
                 .then((response) => {
-                    // Store token and user in localStorage
+                    // Store token and user in sessionStorage
                     const { token, user } = response.data;
-                    localStorage.setItem('user', JSON.stringify(user));  // Store user data
-                    localStorage.setItem('token', token);  // Store the JWT token
+                    sessionStorage.setItem('user', JSON.stringify(user));  // Store user data
+                    sessionStorage.setItem('token', token);  // Store the JWT token
                     navigate('/home');  // Redirect to the home page
                 })
                 .catch((error) => {
@@ -27,7 +28,7 @@ const GoogleCallback = () => {
         }
     }, [navigate]);
 
-    return <div>Loading...</div>;  // Optionally, display a loading state while processing the callback
+    return <Loader/>;  // Optionally, display a loading state while processing the callback
 };
 
 export default GoogleCallback;

@@ -1,4 +1,6 @@
+
 const mongoose = require('mongoose');
+
 
 /* -------------------------------------------------------------------------- */
 /*             FEW DEFAULT BIOS TO BEGIN WITH, LATER CAN BE EDITED            */
@@ -21,6 +23,10 @@ const AccountStatusSchema = mongoose.Schema({
     userId: {
         type: String, // Can be a custom string identifier
         unique: true, // Optional for uniqueness if needed
+    },
+    byOAuth : {
+        type : Boolean,
+        default:false,
     },
     name: {
         type: String,
@@ -49,12 +55,12 @@ const AccountStatusSchema = mongoose.Schema({
         type: String,
         default: () => defaultBios[Math.floor(Math.random() * defaultBios.length)],
 
-        maxLength: [250, 'Bio cannot exceed 250 characters'],
+        maxLength: [50, 'Bio cannot exceed 50 characters'],
         trim: true,
     },
-    profilePictureUrl: {
+    profilePicture: {
         type: String,
-        default : "",
+        default : "https://res.cloudinary.com/dddmjpmci/image/upload/v1735810332/hvdqqu7jzyod7brklvxc.png",
     },
     socialLinks: {
         type: Object,
@@ -72,10 +78,6 @@ const AccountStatusSchema = mongoose.Schema({
         posts: { type: Number, default: 0 },
         followers: { type: Number, default: 0 },
         following: { type: Number, default: 0 },
-    },
-    posts: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: 'Post',
     },
 });
 AccountStatusSchema.post('save', function (error, doc, next) {

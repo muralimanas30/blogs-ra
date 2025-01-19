@@ -1,85 +1,193 @@
-const AccountStatus = require('../models/AccountStatus'); // Import the AccountStatus model
-const { StatusCodes } = require('http-status-codes'); // For HTTP status codes
-const CustomError = require('../error/CustomError'); // Assuming you have a custom error handler
+const AccountStatus = require('../models/AccountStatus');
+const { StatusCodes } = require('http-status-codes');
+const CustomError = require('../error/CustomError');
+const cloudinary = require('../utility/cloudinary');
+const PostList = require('../models/PostList');
+require("dotenv").config()
+const PostSchema = require('../models/Post');
+const { add } = require('lodash');
 
- /* -------------------------------------------------------------------------- */
- /*                           CREATE ACCOUNT FUNCTION                          */
- /* -------------------------------------------------------------------------- */
-const createAccount = async (req, res) => {
+/* -------------------------------------------------------------------------- */
+/*                           CREATE ACCOUNT FUNCTION                          */
+/* -------------------------------------------------------------------------- */
+const createAccount = async (req, res, next) => {
     try {
-        const { userId, name, email } = req.user;
-        console.log(req.user)
-        
-        // Validate that all required fields are present
+        const { userId, name, email, byOAuth } = req.user;
+
+        // Validate input
         if (!userId || !name || !email) {
-            throw new CustomError('Please provide userId, name, and email', StatusCodes.BAD_REQUEST);
+            throw new CustomError('Missing required fields: userId, name, or email', StatusCodes.BAD_REQUEST);
         }
-        let newAccount = await AccountStatus.findOne({ email });
-        if(!newAccount){
-            newAccount = await AccountStatus.create({
+
+        // Check if account already exists
+        let existingAccount = await AccountStatus.findOne({ email });
+        if (!existingAccount) {
+            existingAccount = await AccountStatus.create({
                 userId,
                 name,
                 email,
+                byOAuth,
             });
         }
 
-        // Respond with the newly created account details (excluding sensitive information like passwords)
+        console.log(existingAccount.name, existingAccount.email, existingAccount.byOAuth)
+        // Respond with account details
         res.status(StatusCodes.CREATED).json({
-            user: {
-                userId: newAccount.userId,
-                name: newAccount.name,
-                email: newAccount.email,
-                bio: newAccount.bio, // Default bio set in schema
-                profilePictureUrl: newAccount.profilePictureUrl, // Default profile picture URL,
-                blogStats:newAccount.blogStats,
-                createdAt: newAccount.createdAt, // Account creation timestamp
-            },
+            success: true,
             message: 'Account successfully created',
+            user: {
+                accountId: existingAccount._id,
+                userId: existingAccount.userId,
+                name: existingAccount.name,
+                email: existingAccount.email,
+                bio: existingAccount.bio,
+                profilePicture: existingAccount.profilePicture,
+                blogStats: existingAccount.blogStats,
+                createdAt: existingAccount.createdAt,
+                byOAuth: existingAccount.byOAuth,
+                updatedAt: existingAccount.updatedAt,
+            },
         });
     } catch (error) {
-        console.error(error);
-        throw new CustomError(error.message || 'An error occurred while creating the account', StatusCodes.INTERNAL_SERVER_ERROR);
+        next(new CustomError(error.message || 'Failed to create account', error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR));
     }
 };
 
- /* -------------------------------------------------------------------------- */
- /*                        GET ACCOUNT DETAILS FUNCTION                        */
- /* -------------------------------------------------------------------------- */
-const getAccountDetails = async (req, res) => {
-    try {
-        const { userId } = req.user;
 
-        // Find the account details for the authenticated user
+/* -------------------------------------------------------------------------- */
+/*                           UPDATE ACCOUNT FUNCTION                          */
+/* -------------------------------------------------------------------------- */
+const updateAccount = async (req, res, next) => {
+    try {
+        const { email } = req.user;
+        const { bio } = req.body;
+        const file = req.file;
+
+        if (!email) {
+            throw new CustomError('Please provide email', StatusCodes.BAD_REQUEST);
+        }
+
+        let existingAcc = await AccountStatus.findOne({ email });
+
+        if (!existingAcc) {
+            throw new CustomError('Account not found', StatusCodes.NOT_FOUND);
+        }
+
+        existingAcc.bio = bio || existingAcc.bio;
+        let imageUrl = existingAcc.profilePicture;
+
+        if (file) {
+            const uploadResult = await cloudinary.uploader.upload(file.path, {
+                resource_type: 'image',
+            });
+            imageUrl = uploadResult.secure_url;
+            existingAcc.profilePicture = imageUrl;
+        }
+        existingAcc.updatedAt = Date.now();
+        await existingAcc.save();
+
+        res.status(StatusCodes.OK).json({
+            user: {
+                bio: existingAcc.bio,
+                profilePicture: existingAcc.profilePicture,
+                updatedAt: existingAcc.updatedAt,
+            },
+            success: true,
+            message: 'Account successfully updated',
+        });
+
+
+        console.log(`Account successfully updated:
+            Email: ${email}
+            Bio: ${existingAcc.bio || 'No bio provided'}
+            Profile Picture: ${existingAcc.profilePicture || 'No profile picture available'}`);
+
+        await updateProfileForAllPosts(existingAcc._id,
+            existingAcc.profilePicture
+        )
+
+    } catch (error) {
+        next(new CustomError(error.message || 'An error occurred while updating the account', error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR));
+
+    }
+};
+const updateProfileForAllPosts = async (accountId, newProfilePictureUrl) => {
+    try {
+        // Step 1: Find the PostList document for the user
+        const postList = await PostList.findOne({ accountId });
+        if (!postList) {
+            console.error("No PostList found for the given accountId");
+            return;
+        }
+
+        // Step 2: Extract the posts array
+        const postIds = postList.posts;
+        console.log(postIds)
+        // Step 3: Update each post's profilePicture
+        await PostSchema.updateMany(
+            { _id: { $in: postIds } }, // Match all posts in the array
+            { $set: { profilePicture: newProfilePictureUrl } } // Update profilePicture
+        );
+
+        console.log(`Successfully updated profilePicture for ${postIds.length} posts`);
+    } catch (error) {
+        console.error("Error updating profile pictures:", error);
+    } finally {
+        // Close the database connection
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                        GET ACCOUNT DETAILS FUNCTION                        */
+/* -------------------------------------------------------------------------- */
+const getAccountDetails = async (req, res, next) => {
+    try {
+        const { userId } = req.body;
+        console.log(userId + " From get account details")
+        // Validate userId is provided
+        if (!userId) {
+            throw new CustomError('User ID is required', StatusCodes.BAD_REQUEST);
+        }
+
         const user = await AccountStatus.findOne({ userId });
 
         if (!user) {
-            throw new CustomError('Account not found', StatusCodes.NOT_FOUND);
+            next(new CustomError('Account not found', StatusCodes.NOT_FOUND));
+            return
         }
 
         // Return the user account details
         res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Account details fetched successfully',
             user: {
+                accountId: user._id,
                 userId: user.userId,
                 name: user.name,
                 email: user.email,
                 bio: user.bio,
-                profilePictureUrl: user.profilePictureUrl,
+                profilePicture: user.profilePicture,
                 blogStats: user.blogStats, // Include stats like posts, followers, etc.
                 createdAt: user.createdAt,
+                updatedAt: user.updatedAt,
+                byOAuth: false
             },
         });
     } catch (error) {
-        console.error(error);
-        throw new CustomError(error.message || 'An error occurred while fetching account details', StatusCodes.INTERNAL_SERVER_ERROR);
+
+        next(new CustomError(error.message || 'An error occurred while fetching account details', error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR));
     }
 };
 
- /* -------------------------------------------------------------------------- */
- /*                           DELETE ACCOUNT FUNCTION                          */
- /* -------------------------------------------------------------------------- */
-const deleteAccount = async (req, res) => {
+/* -------------------------------------------------------------------------- */
+/*                           DELETE ACCOUNT FUNCTION                          */
+/* -------------------------------------------------------------------------- */
+const deleteAccount = async (req, res, next) => {
     try {
         const { email } = req.user;
+        if (!email) {
+            throw new CustomError('Email is required to delete the account', StatusCodes.BAD_REQUEST);
+        }
 
         // Find and delete the user's account using the userId
         const user = await AccountStatus.findOneAndDelete({ email });
@@ -89,20 +197,106 @@ const deleteAccount = async (req, res) => {
         }
 
         // Optionally, delete related data such as posts, comments, etc.
-        // For example:
-        // await Post.deleteMany({ userId });
-
-        // Send a response confirming the account was successfully deleted
         res.status(StatusCodes.OK).json({
+            success: true,
             message: 'Account successfully deleted',
         });
     } catch (error) {
-        console.error(error);
-        throw new CustomError(error.message || 'An error occurred while deleting the account', StatusCodes.INTERNAL_SERVER_ERROR);
+        next(new CustomError(error.message || 'An error occurred while deleting the account', error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR));
     }
 };
 
- /* -------------------------------------------------------------------------- */
- /*                  Export the functions to be used in routes                 */
- /* -------------------------------------------------------------------------- */
-module.exports = { createAccount, getAccountDetails, deleteAccount };
+
+const idFromName = async (req, res, next) => {
+    
+    try {
+        
+        const { name } = req.params;
+        if (!name || typeof name !== 'string') {
+            throw new CustomError('Invalid name provided', StatusCodes.BAD_REQUEST);
+        }
+        const response = await AccountStatus.find(
+            { name: { $regex: name, $options: 'i' } }
+            )
+            .select('name profilePicture userId')
+            .limit(3)
+
+        if (!response.length) {
+            throw new CustomError('No account found with the given name', StatusCodes.NOT_FOUND);
+        }
+        res.status(StatusCodes.OK).json({ success: true, data: response });
+    } catch (error) {
+        next(new CustomError(error.message || 'An error occurred while getting name from account', error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR));
+    }
+};
+
+const sendInitiatorResponse = async (req, res, next) => {
+    res.status(StatusCodes.OK).json({ success: true });
+}
+
+
+const validateEmail = async (req, res, next) => {
+    try {
+        const { email } = req.params; 
+        if (!email) {
+            return res.status(StatusCodes.BAD_REQUEST).json({ success: false, message: "Email is required." });
+        }
+        return res.status(StatusCodes.OK).json({ success: true });
+    } catch (error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, message: `${error}` });
+    }
+};
+
+const verifyEmail = (email) => {
+    const dns = require('dns');
+    const SMTPConnection = require('smtp-connection')
+    return new Promise((resolve, reject) => {
+        const domain = email.split('@')[1];
+        if (!domain) {
+            return reject("Invalid email format: Missing domain.");
+        }
+
+        dns.resolveMx(domain, (err, addresses) => {
+            if (err || addresses.length === 0) {
+                return reject("Invalid domain: Unable to resolve MX records.");
+            }
+
+            
+            const mxHost = addresses.sort((a, b) => a.priority - b.priority)[0].exchange;
+
+            
+            const connection = new SMTPConnection({
+                host: mxHost,
+                port: 25,
+                secure: false,
+                tls: {
+                    rejectUnauthorized: false,
+                },
+            });
+
+            connection.on('error', (error) => {
+                reject(`Connection error: ${error.message}`);
+            });
+
+            connection.connect(() => {
+                
+                connection.helo("yourdomain.com");
+                connection.mail({ from: "verify@yourdomain.com" }); 
+                connection.rcpt({ to: email }, (err, response) => {
+                    if (err) {
+                        reject("Invalid email: Recipient address rejected.");
+                    } else {
+                        resolve("Valid email: Recipient address accepted.");
+                    }
+
+                    connection.quit();
+                });
+            });
+        });
+    });
+};
+
+/* -------------------------------------------------------------------------- */
+/*                  Export the functions to be used in routes                 */
+/* -------------------------------------------------------------------------- */
+module.exports = { createAccount, getAccountDetails, deleteAccount, updateAccount, idFromName, sendInitiatorResponse,validateEmail };

@@ -1,0 +1,115 @@
+/* Main public account styles */
+.public-account {
+    background-color: #2a0c5a;
+    /*Darkershadeforprofilebackground*/
+    color: #e4e4e4;
+    /*Slightlymutedwhiteforbettercontrast*/
+    font-size: 1.1rem;
+    width: 100%;
+    margin: 0 auto;
+
+    background: linear-gradient(135deg, #2a0c5a, #0e1e46);
+    /* Dark blue to deep blue/purple */
+
+
+    -webkit-transition: all ease-in-out 0.3s;
+    -moz-transition: all ease-in-out 0.3s;
+    -ms-transition: all ease-in-out 0.3s;
+    -o-transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.3s;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    border-top: 2px solid rgb(208, 158, 255);
+    border-bottom: 2px solid blueviolet;
+}
+
+/* Header styles */
+.public-account-header {
+    margin: 20px;
+    border-bottom: 1px solid #2d2d42;
+    /* Softer light border for separation */
+    padding-bottom: 10px;
+
+
+}
+
+/* Info item styles */
+.info-item {
+    margin: 5px 0;
+    color: #c1c1d0;
+    /* Light gray for subtle information items */
+}
+
+/* Blog stats styles */
+.public-blog-stats {
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+    margin: 10px auto;
+    color: #b3b3cc;
+    /* Slightly lighter text for stats */
+
+}
+
+/* Button styles */
+.open-overlay-button {
+    display: flex;
+    margin: 20px 0;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    position: sticky;
+    top: 10%;
+    z-index: 10;
+
+}
+
+.open-overlay-button button {
+    background-color: transparent;
+    /* Deep purple button */
+    -webkit-backdrop-filter: blur(20px) brightness(0.8);
+    backdrop-filter: blur(20px) brightness(0.8);
+    border: 1px solid white;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    min-width: 100px;
+    max-width: 200px;
+}
+
+.open-overlay-button button:hover {
+    background-color: #6d28d9;
+    /* Brighter purple on hover */
+}
+
+/* Blog container styles */
+.blogs-container {
+    background-color: #2a2a40;
+    /* Dark background for the blogs container */
+    color: #e4e4e4;
+    /* Light text for readability */
+
+}
+
+.ask-login {
+    max-width: 400px;
+    text-align: center;
+    margin: auto;
+
+    & button {
+        background-color: rgb(0, 201, 0);
+        width: 80px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .public-blog-stats {
+        width: 100%;
+    }
+}

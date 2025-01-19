@@ -1,0 +1,76 @@
+/* Overlay styles */
+.blog-form-overlay {
+  position: fixed;
+  top: 50vh;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure it appears on top */
+  animation: fadeIn 0.5s forwards ease-in-out;
+}
+
+/* Overlay content styles */
+.blog-form-overlay-content {
+  background-color: #1a1a2e; /* Slightly lighter dark blue */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 20px 5px rgba(0, 39, 71, 0.5);
+  width: 90%;
+  border: 1px solid white;
+  max-width: 500px;
+}
+
+/* Form item styles */
+.blog-form-item {
+  margin-bottom: 15px;
+}
+
+/* Input and textarea styles */
+.blog-form-item input,
+.blog-form-item textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #3a3a5a; /* Darker border */
+  border-radius: 5px;
+  background-color: #2a2a4d; /* Darker background for inputs */
+  color: #ffffff; /* White text */
+  transition: border 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
+}
+
+/* Glowing effect on focus */
+.blog-form-item input:focus,
+.blog-form-item textarea:focus {
+  border: 1px solid #15e38a; /* Bright green border on focus */
+  box-shadow: 0 0 5px rgba(21, 227, 138, 0.5), 0 0 10px rgba(21, 227, 138, 0.3); /* Glow effect */
+  outline: none; /* Remove default outline */
+}
+
+/* Button styles */
+.blog-form-item:last-child {
+  text-align: center;
+  display: flex;
+  align-content: center;
+  justify-content: space-around;
+
+  & button {
+    background-color: #00c46f; /* Bright green button */
+    color: #ffffff; /* White text */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition for hover */
+    max-width: 150px;
+  }
+}
+
+
+/* Button hover effect */
+.blog-form-item button:hover {
+  background-color: #12b76a; /* Darker green on hover */
+}

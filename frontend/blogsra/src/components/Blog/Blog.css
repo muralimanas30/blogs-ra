@@ -1,0 +1,387 @@
+.blog-card {
+    background: linear-gradient(45deg, #000000, #1f3b60, #1a3f7f, #1d4e99, #1f3b60, #6b045a);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    animation: blog-card-fade-in 0.5s forwards;
+    max-width: 400px;
+    min-width: 300px;
+    margin: 20px 10px;
+    max-height: fit-content;
+    -webkit-transition: transform 0.3s ease, box-shadow 0.3s ease;
+    -moz-transition: transform 0.3s ease, box-shadow 0.3s ease;
+    -ms-transition: transform 0.3s ease, box-shadow 0.3s ease;
+    -o-transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0px 15px 0px rgba(0, 0, 0, 1);
+    animation-timeline: view();
+    animation-range: entry 5% cover 15%;
+    transform: translate(-10%,0) ;
+    -webkit-transform: translate(-10%,0) ;
+    -moz-transform: translate(-10%,0) ;
+    -ms-transform: translate(-10%,0) ;
+    -o-transform: translate(-10%,0) ;
+}
+
+
+@keyframes blog-card-fade-in {
+    0% {
+        opacity: 0;
+        transform: translate(-10%, 0%) scale(0.8) ;
+        -webkit-transform: translate(-10%, 0%) scale(0.8) ;
+        -moz-transform: translate(-10%, 0%) scale(0.8) ;
+        -ms-transform: translate(-10%, 0%) scale(0.8) ;
+        -o-transform: translate(-10%, 0%) scale(0.8) ;
+}
+
+    50% {
+        opacity: 0.5;
+        /* Midway opacity */
+        transform: translate(0%, 0%) scale(1);
+        /* Scale to normal size */
+    }
+
+    75% {
+        opacity: 0.8;
+        transform: translate(2%, 0%) scale(1.05);
+        -webkit-transform: translate(2%, 0%) scale(1.05);
+        -moz-transform: translate(2%, 0%) scale(1.05);
+        -ms-transform: translate(2%, 0%) scale(1.05);
+        -o-transform: translate(2%, 0%) scale(1.05);
+}
+
+    100% {
+        opacity: 1;
+        /* Fully visible */
+        transform: translate(0%, 0%) scale(1);
+        /* Final position and scale */
+    }
+}
+
+.show-more {
+    color: #007bff;
+    /* Bootstrap primary color */
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 8px;
+    /* Space above the "Show More" text */
+}
+
+.show-more:hover {
+    text-decoration: none;
+    /* Remove underline on hover for a cleaner look */
+    color: #0056b3;
+    /* Darker shade on hover */
+}
+
+.deleting {
+    filter: blur(20px);
+    -webkit-filter: blur(20px);
+}
+
+.loader-display-on-top {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+
+
+}
+
+.blog-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    /* Slight lift and scale on hover */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+}
+
+.blog-card-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #0f3460;
+    /* Darker blue for header */
+}
+
+.blog-card-header .user-name {
+    background-color: rgb(107, 141, 236);
+    /* Base background color */
+    color: #fff;
+    /* Text color */
+    width: 100%;
+    border-radius: 8px;
+    /* Rounded corners */
+    font-size: 14px;
+    /* Font size */
+    font-weight: bold;
+    /* Bold text */
+    box-shadow: 0 4px 10px rgba(107, 141, 236, 0.4);
+    /* Subtle shadow */
+    transition: all 0.4s ease-in-out;
+    /* Smooth transition */
+    position: relative;
+    /* Required for pseudo-elements */
+    overflow: hidden;
+    /* Clip overflow during animations */
+    cursor: pointer;
+    /* Indicate interactivity */
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+/* Hover effect with a gradient shimmer */
+.blog-card-header .user-name:hover {
+    background: linear-gradient(90deg, rgb(107, 141, 236), rgb(80, 110, 220), rgb(107, 141, 236));
+    background-size: 200%;
+    animation: shimmer 2s infinite ease-in-out;
+    /* Smooth shimmer */
+    transform: scale(1.03);
+    /* Subtle zoom */
+    box-shadow: 0 8px 20px rgba(107, 141, 236, 0.6);
+    /* Enhance shadow */
+}
+
+
+
+/* Keyframes for the pulse animation */
+@keyframes pulse-animation {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* Keyframes for the shimmer effect */
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.blog-card-profile-pic {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #eaeaea;
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+}
+
+.blog-card-profile-pic:hover {
+    cursor: pointer;
+    border: 2px solid gold;
+    box-shadow: 0px 1px 5px rgb(255, 255, 255);
+    /*Lightborderforprofilepicture*/
+    transform: scale(1.05);
+
+}
+
+.blog-card-image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-card-image {
+    width: 100%;
+    height: 200px;
+    /*Fixedheightforuniformity*/
+    object-fit: cover;
+    /*Coverthecontainer*/
+    object-position: center;
+    /*Centertheimage*/
+    transition: all 0.3s ease;
+
+
+}
+
+.blog-card-image:hover {
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
+}
+
+.blog-card-image.blur {
+    opacity: 0.5;
+    /* Blur effect while loading */
+}
+
+.blog-card-image.loaded {
+    opacity: 1;
+    /* Fully visible when loaded */
+}
+
+.blog-card-content {
+    padding: 15px;
+    /* height: 150px; */
+}
+
+.blog-card-title {
+    font-size: 1.5em;
+    margin: 0;
+    color: #eaeaea;
+    /* Light title color */
+}
+
+.blog-card-description {
+    margin: 10px 0;
+    color: #dcdcdc;
+    /* Slightly darker text for description */
+}
+
+.blog-card-tags {
+    margin-top: 10px;
+}
+
+.blog-card-tag {
+    background-color: #0f3460;
+    /* Tag background */
+    color: #eaeaea;
+    /* Tag text color */
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.blog-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #0f3460;
+    /* Darker blue for footer */
+
+    & button {
+        width: 100px;
+    }
+
+    & span {
+        max-width: 150px;
+    }
+}
+
+.blog-card-likes {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.blog-card-likes:hover {
+    color: #ff6f61;
+    /* Change color on hover */
+}
+
+.blog-card-date {
+    font-size: 0.9em;
+    color: #b0b0b0;
+    /* Lighter color for date */
+}
+
+
+.post-delete-button {
+    margin-left: auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: absolute;
+    right: 20px;
+}
+
+.post-delete-svgIcon {
+    width: 15px;
+    transition-duration: 0.3s;
+}
+
+.post-delete-svgIcon path {
+    fill: white;
+}
+
+.post-delete-button:hover {
+    width: 90px;
+    border-radius: 50px;
+    transition-duration: 0.3s;
+    background-color: rgb(255, 69, 69);
+    align-items: center;
+    box-shadow: 0px 0px 20px rgba(211, 30, 30, 0.836);
+}
+
+.post-delete-button:hover .post-delete-svgIcon {
+    width: 20px;
+    transition-duration: 0.3s;
+    transform: translateY(60%);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+
+.post-delete-button::before {
+    display: none;
+    content: "Delete";
+    color: white;
+    transition-duration: 0.3s;
+    font-size: 2px;
+}
+
+.post-delete-button:hover::before {
+    display: block;
+    padding-right: 10px;
+    font-size: 13px;
+    opacity: 1;
+    transform: translateY(0px);
+    transition-duration: 0.3s;
+}
+
+/* Fade-in Animation */
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .blog-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        /* Adjust for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-container {
+        grid-template-columns: 1fr;
+        /* Single column for mobile */
+    }
+}
+
+
+@media (max-width: 350px) {
+    .blog-card{
+        min-width: 90%;
+    }
+}

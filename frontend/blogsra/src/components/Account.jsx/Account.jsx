@@ -8,41 +8,32 @@ import AccountInfo from './SubComponents/AccountInfo';
 import Notifications from './SubComponents/Notifications';
 import Settings from './SubComponents/Settings';
 import EditBio from './SubComponents/EditBio';
-import BlogsContainer from '../BlogsContainer/BlogsContainer';
-const Account = () => {
-    /* -------------------------------------------------------------------------- */
-    /*                              NECESSARY STATES                              */
-    /* -------------------------------------------------------------------------- */
+import SimpleComponent from '../SimpleComponent/SimpleComponent';
+import Loader from '../Loader/Loader';
+import { useAccountContext } from '../../context/AccountContext';
 
+const Account = () => {
     const navigate = useNavigate();
-    const { createAccount, authToken } = useAuthContext();
+    const {authToken } = useAuthContext();
+    const {createAccount,accountInfo,setAccountInfo} = useAccountContext()
     const [showConfirm, setShowConfirm] = useState(false);
     const [showTakePassword, setShowTakePassword] = useState(false);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('account');
     const [isEditingBio, setIsEditingBio] = useState(false);
-    const imageRef = useRef(null);
-    const [accountInfo, setAccountInfo] = useState(JSON.parse(sessionStorage.getItem('accountInfo')))
+    
+    const [error, setError] = useState(null);
 
-    /* -------------------------------------------------------------------------- */
-    /*    Fetching account information (either from sessionStorage or from API)   */
-    /* -------------------------------------------------------------------------- */
     useEffect(() => {
-
-        // If we have data in sessionStorage, we set it directly.
-        const storedAccountInfo = sessionStorage.getItem('accountInfo');
-        if (!storedAccountInfo) {
-            setAccountInfo(JSON.parse(storedAccountInfo));
-            setLoading(false);
-        }
-        // Only fetch account info from API if authToken is available and no data in sessionStorage
-        else if (authToken && !accountInfo) { // Check if accountInfo is already loaded
+        
+        if (!accountInfo) {
             const fetchAccountInfo = async () => {
                 try {
                     const data = await createAccount(authToken);
                     setAccountInfo(data);
                     sessionStorage.setItem('accountInfo', JSON.stringify(data));
                 } catch (error) {
+                    setError('Failed to fetch account information.');
                     console.error('Error fetching account info:', error);
                 } finally {
                     setLoading(false);
@@ -50,39 +41,37 @@ const Account = () => {
             };
             fetchAccountInfo();
         } else {
-            setLoading(false); // Stop loading if no authToken and no stored data
+            setLoading(false);
         }
-    }, [authToken, accountInfo, setAccountInfo, createAccount]); // Only trigger if authToken or accountInfo changes
+    }, [authToken]);
 
-
-    /* ------------------------------------ * ----------------------------------- */
-    const handleDeleteAccount = async () => setShowConfirm(true);
-
+    const handleDeleteAccount = () => setShowConfirm(true);
     const handleBackToHome = () => navigate('/');
-
     const handleEdit = () => setIsEditingBio(true);
+    const handleCancelEdit = () => setIsEditingBio(false);
 
-    const handleCancelEdit = () => setIsEditingBio(false); // Close EditBio modal
     if (loading) {
-        return <div>Loading...</div>; // Loading state until account data is fetched
+        return <Loader />;
     }
 
-    /* ----------------------------------- *** ---------------------------------- */
-    /* ----------------------------------- *** ---------------------------------- */
+    // If accountInfo is null or undefined, show an appropriate fallback
+    if (!accountInfo) {
+        return <div>Please log in to view your account information.</div>;
+    }
+
     return (
         <>
             {showConfirm && <AreYouSure setShowConfirm={setShowConfirm} setShowTakePassword={setShowTakePassword} />}
             {showTakePassword && <CustomPopUp shouldDelete={true} setShowTakePassword={setShowTakePassword} />}
+            
+            {error && <div className="error-message">{error}</div>}
 
             <div className="account-container">
                 <div className="account-header">Your Account Information</div>
                 <div className="account-wrapper-settings-content">
                     <div className="account-settings">
                         <div className="account-profile-image">
-                            <img ref={imageRef}
-                                src={accountInfo.user.profilePicture}
-                                alt="Profile"
-                            />
+                            <img src={accountInfo?.user?.profilePicture} alt="Profile" />
                         </div>
                         <div className="account-navigation">
                             <ul className="account-navigation-ul">
@@ -93,18 +82,17 @@ const Account = () => {
                             </ul>
                         </div>
                     </div>
-
                     <div className="account-content">
-                        {activeTab === 'my blogs' && <BlogsContainer accountInfo={accountInfo}/>}
-                        {activeTab === 'account' && <AccountInfo accountInfo={accountInfo} handleEdit={handleEdit} />}
+                        {activeTab === 'my blogs' && <SimpleComponent/>}
+                        {activeTab === 'account' && <AccountInfo handleEdit={handleEdit} />}
                         {activeTab === 'notifications' && <Notifications />}
                         {activeTab === 'settings' && <Settings />}
-                        {
-                            (activeTab === 'account' || activeTab ==='settings') && <div className="account-buttons">
-                            <button onClick={handleDeleteAccount} className="delete-button">Delete Account</button>
-                            <button onClick={handleBackToHome} className="back-button">Back to Home</button>
-                        </div>
-                        }
+                        {(activeTab === 'account' || activeTab === 'settings') && (
+                            <div className="account-buttons">
+                                <button onClick={handleDeleteAccount} className="delete-button">Delete Account</button>
+                                <button onClick={handleBackToHome} className="back-button">Back to Home</button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -113,8 +101,6 @@ const Account = () => {
                 <>
                     <div className="edit-bio-overlay"></div>
                     <EditBio
-                        accountInfo={accountInfo}
-                        setAccountInfo={setAccountInfo}
                         setIsEditingBio={setIsEditingBio}
                         onCancel={handleCancelEdit}
                     />

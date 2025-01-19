@@ -1,0 +1,155 @@
+/* src/components/CustomError/CustomError.css */
+
+.custom-error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a1d3f, #0e2a5c);
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-error-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.custom-error-hero-box {
+    margin: 15px 0;
+    animation: customErrorHeroBoxFadeIn 0.5s ease forwards;
+}
+
+.custom-error-hero-image {
+    width: 200px;
+    height: auto;
+    margin: 10px 0;
+    animation: customErrorHeroImageFadeIn 1s ease-in-out;
+}
+
+.custom-error-hero-text {
+    font-size: 1.2rem;
+    margin: 5px 0;
+    animation: customErrorHeroTextSlideIn 0.5s ease forwards;
+}
+
+.custom-error-content {
+    animation: customErrorContentFadeIn 1s ease-in-out;
+}
+
+.custom-error-title {
+    font-size: 4rem;
+    margin: 0;
+    animation: customErrorTitleSlideIn 0.5s ease forwards;
+}
+
+.custom-error-message {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    animation: customErrorMessageSlideIn 0.5s ease forwards;
+}
+
+.custom-error-details {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    margin: 20px 0;
+    overflow-x: auto;
+    animation: customErrorDetailsFadeIn 1s ease-in-out;
+}
+
+.custom-error-btn {
+    background-color: #1e3a78;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.custom-error-btn:hover {
+    background-color: #1a2a5e;
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes customErrorHeroBoxFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes customErrorHeroImageFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes customErrorHeroTextSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes customErrorContentFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes customErrorTitleSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes customErrorMessageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes customErrorDetailsFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

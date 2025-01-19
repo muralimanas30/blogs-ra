@@ -20,9 +20,13 @@ const UserSchema = mongoose.Schema({
     password : {
         type:String,
         requied:[true, 'Please provide password'],
-        minLength:[6,'password too short'],
-        maxLength:[20,'password too long'],
+        minLength:[6,'password atleast 6 characters'],
+        maxLength:[20,'password atmost 20 characters'],
     },
+    byOAuth : {
+        type:Boolean,
+        default : false,
+    }
 })
 
 UserSchema.pre('save',async function(next){
@@ -32,7 +36,7 @@ UserSchema.pre('save',async function(next){
 })
 
 UserSchema.methods.createJWT = function(){
-    return jwt.sign({userId:this._id,name:this.name,email:this.email},
+    return jwt.sign({userId:this._id,name:this.name,email:this.email,byOAuth:this.byOAuth},
         process.env.JWT_SECRET,
         {
             expiresIn:process.env.JWT_LIFETIME

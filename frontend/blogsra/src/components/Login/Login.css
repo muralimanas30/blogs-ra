@@ -1,13 +1,10 @@
-.company-name {
+.auth-container .company-name {
   font-size: 16px;
-  /* Reduced font size for company name */
   font-weight: bold;
   color: #ffffff;
   text-align: center;
   margin-bottom: 8px;
-  /* Reduced space below the company name */
   letter-spacing: 1px;
-  /* Slightly reduced letter spacing */
   font-family: "Arial", sans-serif;
   background: linear-gradient(45deg, white, skyblue);
   background-size: 200% 200%;
@@ -17,33 +14,26 @@
   animation: moveGradient 2s ease infinite alternate-reverse forwards;
 }
 
-/* Keyframes for gradient movement */
 @keyframes moveGradient {
   0% {
     background-position: 0% 0%;
   }
-
   100% {
     background-position: 100% 100%;
   }
 }
 
-/* Container */
-.register-container-content,
-.login-container-content {
+.auth-container .login-container-content,
+.auth-container .register-container-content{
   border: 2px solid rgb(101, 137, 255);
   max-width: 350px;
-  /* Reduced max-width */
   margin: 20px auto;
-  /* Reduced margin to bring the container closer to the top */
   padding: 15px;
-  /* Reduced padding */
   border-radius: 12px;
   background: linear-gradient(-135deg, #21006d, rgb(21, 0, 112), #130e0e);
   background: transparent;
   -webkit-backdrop-filter: blur(20px) brightness(0.8);
   backdrop-filter: blur(20px) brightness(0.8);
-  /* Subtle gradient */
   box-sizing: border-box;
   color: #fff;
   box-shadow: 0px 8px 20px 2px rgba(156, 224, 255, 0.466);
@@ -52,58 +42,40 @@
   animation: rotateEffect 0.5s linear forwards;
 }
 
-/* Keyframe Animation */
 @keyframes rotateEffect {
   0% {
     opacity: 0;
     transform: translate(0px, -25px) rotateY(-90deg);
-    -webkit-transform: translate(0px, -25px) rotateY(-90deg);
-    -moz-transform: translate(0px, -25px) rotateY(-90deg);
-    -ms-transform: translate(0px, -25px) rotateY(-90deg);
-    -o-transform: translate(0px, -25px) rotateY(-90deg);
   }
   90% {
     transform: translate(0px, 7px);
-    -webkit-transform: translate(0px, 7px);
-    -moz-transform: translate(0px, 7px);
-    -ms-transform: translate(0px, 7px);
-    -o-transform: translate(0px, 7px);
   }
   100% {
     opacity: 1;
     transform: rotateY(0deg);
-    -webkit-transform: rotateY(0deg);
-    -moz-transform: rotateY(0deg);
-    -ms-transform: rotateY(0deg);
-    -o-transform: rotateY(0deg);
   }
 }
 
-/* Form Styles */
-form {
+.auth-container form {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  /* Reduced gap between form elements */
 }
 
-.usrbox,
-.passwordbox {
+.auth-container .usrbox,
+.auth-container .passwordbox {
   margin-bottom: 12px;
-  /* Reduced margin for form sections */
 }
 
-label {
+.auth-container label {
   font-size: 12px;
   font-weight: bold;
   color: #f0f0f0;
 }
 
-input {
+.auth-container input {
   padding: 6px;
-  /* Reduced padding for inputs */
   font-size: 13px;
-  /* Reduced font size for inputs */
   border: 1px solid #555;
   border-radius: 8px;
   margin-top: 5px;
@@ -113,53 +85,46 @@ input {
   transition: all 0.3s ease;
 }
 
-input:focus {
+.auth-container input:focus {
   outline: none;
   border: 1px solid #ff6ec4;
   box-shadow: 0 0 8px rgba(255, 110, 196, 0.5);
 }
 
-/* Buttons */
-button {
+.auth-container button {
   padding: 8px;
-  /* Reduced padding for buttons */
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 13px;
-  /* Reduced font size for buttons */
   cursor: pointer;
   width: 100%;
   transition: all 0.3s ease;
 }
 
-button:hover {
+.auth-container button:hover {
   background-color: #0056b3;
   transform: scale(1.05);
   box-shadow: 0 0 12px rgba(0, 123, 255, 0.7);
 }
 
-button:disabled {
-  background-color: #b3d1ff;
+.auth-container button:disabled {
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* Social Buttons */
-.social-login {
+.auth-container .social-login {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 8px;
-  /* Reduced gap between social buttons */
 }
 
-.google-login,
-.apple-login {
+.auth-container .google-login,
+.auth-container .apple-login {
   padding: 8px;
-  /* Reduced padding for social login buttons */
   font-size: 13px;
-  /* Smaller font size for social buttons */
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -170,115 +135,105 @@ button:disabled {
   max-height: 40px;
 }
 
-.google-login {
+.auth-container .google-login {
   background-color: #db4437;
-  /* Google Red */
 }
 
-.google-login:hover {
+.auth-container .google-login:hover {
   background-color: #c33b2e;
   transform: scale(1.05);
-  box-shadow: 0 0 12px rgba(219, 68, 55, 0.7);
+  box-shadow: 0 0  12px rgba(219, 68, 55, 0.7);
 }
 
-.apple-login {
+.auth-container .apple-login {
   background-color: #000000;
-  /* Black for Apple */
 }
 
-.apple-login:hover {
+.auth-container .apple-login:hover {
   background-color: #333;
   transform: scale(1.05);
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
 }
 
-/* Divider */
-.divider {
+.auth-container .divider {
   border-bottom: 3px solid #7873f5;
   margin: 12px 0;
 }
 
-/* Register Section */
-.register-box,
-.login-box {
+.auth-container .register-box,
+.auth-container .login-box {
   margin-top: 12px;
   text-align: center;
 }
 
-.register-box p,
-.login-box p {
+.auth-container .register-box p,
+.auth-container .login-box p {
   font-size: 12px;
   margin: 6px 0;
   color: #f0f0f0;
 }
 
-.register-button,
-.login-button {
+.auth-container .register-button,
+.auth-container .login-button {
   padding: 8px;
   background-color: #1fb642;
   border: none;
   border-radius: 8px;
   color: white;
   font-size: 13px;
-  /* Reduced font size for register/login buttons */
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
 }
 
-.register-button:hover,
-.login-button:hover {
+.auth-container .register-button:hover,
+.auth-container .login-button:hover {
   background-color: #08ff3de7;
   transform: scale(1.05);
   box-shadow: 0 0 12px rgba(40, 167, 69, 0.7);
 }
 
-/* Error Message */
-.error-message {
+.auth-container .error-message {
   color: #ff6ec4;
   font-size: 12px;
   margin-bottom: 8px;
 }
 
-/* Forgot Password */
-.forgot-password {
+.auth-container .forgot-password {
   text-align: right;
   font-size: 12px;
   margin-top: 4px;
 }
 
-.forgot-password a {
+.auth-container .forgot-password a {
   color: #7873f5;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.forgot-password a:hover {
+.auth-container .forgot-password a:hover {
   color: #ff6ec4;
   text-decoration: underline;
 }
 
-/* Responsive Design */
 @media screen and (max-width: 500px) {
-  .register-container-content,
-  .login-container-content {
+  .auth-container .login-container-content,
+  .auth-container .register-container-content {
     padding: 12px;
-    /* Reduced padding for smaller screens */
   }
 
-  button,
-  input {
+  .auth-container button,
+  .auth-container input {
     font-size: 12px;
-    /* Reduced font size */
   }
 }
-.login-back-home {
+
+.auth-container .login-back-home {
   position: absolute;
   top: 12px;
 }
 
-/* From Uiverse.io by satyamchaudharydev */
-.barspinner {
+.auth-container .barspinner {
   position: absolute;
   width: 60px;
   height: 60px;
@@ -291,7 +246,7 @@ button:disabled {
   transform: translate(-100%, -50%);
 }
 
-.barspinner span {
+.auth-container .barspinner span {
   position: absolute;
   top: 50%;
   left: var(--left);
@@ -302,42 +257,42 @@ button:disabled {
   box-shadow: 2px 2px 3px 0px black;
 }
 
-.barspinner span:nth-child(1) {
+.auth-container .barspinner span:nth-child(1) {
   --left: 80px;
   animation-delay: 0.125s;
 }
 
-.barspinner span:nth-child(2) {
+.auth-container .barspinner span:nth-child(2) {
   --left: 70px;
   animation-delay: 0.3s;
 }
 
-.barspinner span:nth-child(3) {
+.auth-container .barspinner span:nth-child(3) {
   left: 60px;
   animation-delay: 0.425s;
 }
 
-.barspinner span:nth-child(4) {
+.auth-container .barspinner span:nth-child(4) {
   animation-delay: 0.54s;
   left: 50px;
 }
 
-.barspinner span:nth-child(5) {
+.auth-container .barspinner span:nth-child(5) {
   animation-delay: 0.665s;
   left: 40px;
 }
 
-.barspinner span:nth-child(6) {
+.auth-container .barspinner span:nth-child(6) {
   animation-delay: 0.79s;
   left: 30px;
 }
 
-.barspinner span:nth-child(7) {
+.auth-container .barspinner span:nth-child(7) {
   animation-delay: 0.915s;
   left: 20px;
 }
 
-.barspinner span:nth-child(8) {
+.auth-container .barspinner span:nth-child(8) {
   left: 10px;
 }
 

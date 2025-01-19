@@ -1,0 +1,72 @@
+.blogs-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    #1e293b,
+    #334155
+  ); /* Dark blue gradient background */
+  flex: 1;
+  background: repeating-linear-gradient(
+    45deg,
+    #1e2a47,
+    #1e2a47 10px,
+    #120514 10px,
+    #121212 20px
+  ); /* Dark blue to near-black */
+
+  background: repeating-linear-gradient(
+    45deg,
+    rgb(0, 0, 0) 10px,
+    rgb(66, 66, 66) 24px
+  ); /* Dark blue to near-black */
+  background-size: 40px 40px; /* Defines the size of each repeat */
+  
+  border-bottom: 1px solid white;
+  border-radius: 12px; /* Rounded corners */
+  min-height: 7vh;
+  background-size: 100px 200px; /* Defines the size of each repeat */
+  animation: moveBackgroundBlogs 10s linear infinite alternate-reverse; /* Animation for movement */
+  border-top: 1px solid white;
+}
+@keyframes moveBackgroundBlogs {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Fade-in effect for the container */
+@keyframes blogs-container-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.blogs-container-message {
+  font-size: 1.2rem;
+  color: #e2e8f0;
+  /*Lightblue-gray*/text-align: center;
+  margin: 20px 20px;
+  animation: message-fade-in 0.5s ease-in-out;
+  
+}
+
+/* Fade-in animation for the message */
+@keyframes message-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

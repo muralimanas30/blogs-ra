@@ -7,27 +7,23 @@
 /* Contact Us Section */
 .contact-section {
     position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 0.719), rgba(255, 255, 255, 0.137), rgba(1, 42, 88, 0.397)),
-        /*Softbluegradient*/
-        url('https://www.teahub.io/photos/full/48-486428_about-contact-us-wallpaper-hd.jpg') no-repeat center center/cover;
-    /*Beautifulbackgroundimage*/
-    text-align: center;
+    background:linear-gradient(rgba(0,0,0,0.719),rgba(255,255,255,0.137),rgba(1,42,88,0.397)),/*Softbluegradient*/url('https://www.teahub.io/photos/full/48-486428_about-contact-us-wallpaper-hd.jpg') no-repeat center center/cover;
+    /*Beautifulbackgroundimage*/text-align: center;
     padding: 25px 0;
     color: #fff;
     border-radius: 10px;
     border-left: 2px solid white;
     border-right: 2px solid white;
-    -webkit-animation: homeFadeIn 0.4s linear forwards;
-    animation: homeFadeIn 0.4s linear forwards;
+    -webkit-animation: contactFadeIn 0.4s linear forwards;
+    animation: contactFadeIn 0.4s linear forwards;
     -webkit-filter: brightness(1.2);
     filter: brightness(1.2);
-    /*foranimation*/
-    opacity: 0;
-    -webkit-transform: translate(0, -10%);
-    -moz-transform: translate(0, -10%);
-    -ms-transform: translate(0, -10%);
-    -o-transform: translate(0, -10%);
-    transform: translate(0, -10%);
+    /*foranimation*/opacity: 0;
+    -webkit-transform: translate(-10%, 0%);
+    -moz-transform: translate(-10%, 0%);
+    -ms-transform: translate(-10%, 0%);
+    -o-transform: translate(-10%, 0%);
+    transform: translate(-10%, 0%);
     animation-timeline: scroll(0%, 0%);
 }
 
@@ -41,6 +37,7 @@
         transform: translate(0%, 0%);
     }
 }
+
 
 .contact-section h2 {
     font-size: 3em;

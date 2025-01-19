@@ -1,8 +1,4 @@
-/* From Uiverse.io by mrhyddenn */
 
-/* The Modal Background */
-
-/* From Uiverse.io by satyamchaudharydev */
 .spinner {
   position: relative;
   width: 60px;
@@ -302,4 +298,9 @@
 
 .CustomPopUpDeletebutton:active {
   border: 1px solid #b20000;
+}
+.error-message{
+  color: #b20000;
+  font-family: "REM";
+  font-size: 10px;
 }

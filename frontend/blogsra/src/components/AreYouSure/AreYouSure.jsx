@@ -4,22 +4,25 @@ import PropTypes from 'prop-types'
 import { useAuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useAccountContext } from '../../context/AccountContext';
 const AreYouSure = ({ setShowConfirm, setShowTakePassword }) => {
-    const {user,authToken,deleteAccount} = useAuthContext()
+    const { user, authToken } = useAuthContext()
+    const { deleteAccount } = useAccountContext()
     const navigate = useNavigate()
-    const handleConfirm = async()=>{
+    const handleConfirm = async () => {
         setShowConfirm(false)
-        if(user.byOAuth){
+        if (user.byOAuth) {
             const shouldDelete = await deleteAccount(authToken)
-            if(shouldDelete){
+            if (shouldDelete) {
                 toast.success('Account Deleted')
                 navigate('/')
             }
         }
-        else{
+        else {
             setShowTakePassword(true)
         }
     }
+    const messageToDisplay = `This will delete your account permanently. All your data, photos and blogs will be lost. This process cannot be undone. Are you sure?`
     return (
         <div className="confirm-box-container__are-you-sure">
             <div className="confirm-box__icon-container">
@@ -38,12 +41,12 @@ const AreYouSure = ({ setShowConfirm, setShowTakePassword }) => {
             </div>
             <h2 className="confirm-box__title">Are you sure?</h2>
             <p className="confirm-box__description">
-            This will delete your account permanently. All your photos and blogs will be lost. This process cannot be undone. <br />Are you sure?
+                {messageToDisplay}
             </p>
             <div className="confirm-box__button-container">
-                <button className="confirm-box__cancel-button" onClick={()=>setShowConfirm(false)}>Cancel</button>
+                <button className="confirm-box__cancel-button" onClick={() => setShowConfirm(false)}>Cancel</button>
                 <button className="confirm-box__confirm-button" onClick={
-                    ()=>{handleConfirm()}}>Confirm</button>
+                    () => { handleConfirm() }}>Confirm</button>
             </div>
         </div>
     );
@@ -52,6 +55,7 @@ const AreYouSure = ({ setShowConfirm, setShowTakePassword }) => {
 
 
 AreYouSure.propTypes = {
+    message: PropTypes.string,
     setShowConfirm: PropTypes.func.isRequired,
     setShowTakePassword: PropTypes.func.isRequired,
 };

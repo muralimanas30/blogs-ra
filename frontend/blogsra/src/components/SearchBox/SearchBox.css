@@ -1,0 +1,23 @@
+.searchbox-input {
+
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #b3c0ff;
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.3s ease;
+    width: 90%;
+    max-width: 600px;
+}
+
+.searchbox-input:focus {
+    border-color: #5a78ff;
+    box-shadow: 0 0 5px rgba(90, 120, 255, 0.5);
+}
+
+@media (max-width: 600px) {
+    .searchbox-input {
+        width: 100%;
+        font-size: 12px;
+    }
+}

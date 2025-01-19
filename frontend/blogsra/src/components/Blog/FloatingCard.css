@@ -1,0 +1,58 @@
+/* FloatingCard.css */
+
+.floating-card__overlay {
+    position: fixed; /* Use fixed to cover the entire viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000; /* Ensure it is above everything */
+}
+
+.floating-card__content-card {
+    background: white;
+    border-radius: 8px;
+    height: 500px; /* Fixed height */
+    width: 90%;
+    max-width: 500px; /* Maximum width */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.floating-card__scrollable-content {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto; /* Allow vertical scrolling */
+}
+
+.floating-card__footer {
+    background: #f1f1f1;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.floating-card__close-button {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.floating-card__close-button:hover {
+    background: #ff1a1a; /* Darker red on hover */
+}
+
+.floating-card__scroll-message {
+    font-size: 14px;
+    color: #666; /* Gray color for the scroll message */
+}

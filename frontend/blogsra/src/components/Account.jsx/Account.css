@@ -9,9 +9,12 @@
   padding: 20px;
   background: linear-gradient(120deg, #1a1a2e, #0f0f1a); /* Dark blue gradient */
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(63, 63, 63, 0.5);
   animation: accountFadeIn 0.8s ease-in-out;
   transition: max-height 1s ease-in-out; /* Transition the max-height */
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  
 }
 
 /* Active state - when content is loaded and needs more space */
@@ -141,6 +144,7 @@
   justify-content: space-between;
   flex-direction: row;
   margin: 20px auto;
+  
 }
 
 /* Common button styles for both delete and back buttons */
@@ -292,7 +296,7 @@
   }
   
   .account-content {
-    max-width: 100%;
+    width: 100%;
   }
   
   .account-buttons {

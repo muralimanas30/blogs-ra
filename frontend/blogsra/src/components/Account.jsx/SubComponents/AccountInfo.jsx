@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../../context/AuthContext';
+import { useAccountContext } from '../../../context/AccountContext';
 
-const AccountInfo = ({ accountInfo,handleEdit }) => {
+
+const AccountInfo = ({handleEdit }) => {
+    const navigate = useNavigate();
+    const {authToken} = useAuthContext()
+    const {accountInfo} = useAccountContext()
+    useEffect(() => {
+        // If accountInfo or user is not available, navigate to home page
+        if (!authToken || !accountInfo || !accountInfo.user) {
+            navigate('/');
+        }
+    }, [authToken]);
+
+    // If accountInfo or accountInfo.user is still missing, return nothing to avoid rendering
+    if (!accountInfo || !accountInfo.user) {
+        return null;
+    }
 
     return (
         <div className="account-info">
@@ -21,25 +39,14 @@ const AccountInfo = ({ accountInfo,handleEdit }) => {
                 </div>
             ))}
             <button onClick={handleEdit}>Edit</button>
+            
+            
         </div>
     );
 };
 
 AccountInfo.propTypes = {
-    accountInfo: PropTypes.shape({
-        user: PropTypes.shape({
-            name: PropTypes.string,
-            email: PropTypes.string,
-            bio: PropTypes.string,
-            createdAt: PropTypes.string,
-            blogStats: PropTypes.shape({
-                posts: PropTypes.number,
-                followers: PropTypes.number,
-                following: PropTypes.number,
-            }),
-        }).isRequired,
-    }).isRequired,
-    handleEdit: PropTypes.func.isRequired
+    handleEdit: PropTypes.func.isRequired,
 };
 
 export default AccountInfo;

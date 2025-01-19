@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './EditBio.css';
 import { useAuthContext } from '../../../context/AuthContext';
+import { useAccountContext } from '../../../context/AccountContext';
 
-const EditBio = ({ accountInfo, setAccountInfo, setIsEditingBio, onCancel }) => {
-    const { authToken, editAccount } = useAuthContext();
+const EditBio = ({ setIsEditingBio, onCancel }) => {
+    const { authToken } = useAuthContext();
+    const {editAccount,accountInfo,setAccountInfo} = useAccountContext()
     const [bioText, setBioText] = useState(accountInfo.user.bio || ''); // Track bio input
     const [image, setImage] = useState(null); // Track profile picture
     const [loading, setLoading] = useState(false);
@@ -24,19 +26,8 @@ const EditBio = ({ accountInfo, setAccountInfo, setIsEditingBio, onCancel }) => 
         setLoading(true);
 
         const form = e.target; // Create FormData from the form element
-        
-
         try {
             const res = await editAccount(authToken, form);
-            setAccountInfo((prevState) => ({
-                ...prevState,
-                user: {
-                    ...prevState.user,
-                    bio: res.user.bio,
-                    profilePicture: res.user.profilePicture,
-                    updatedAt: res.user.updatedAt,
-                },
-            }));
             setIsEditingBio(false); // Exit editing mode
         } catch (error) {
             console.error('Error updating account:', error);
@@ -56,7 +47,7 @@ const EditBio = ({ accountInfo, setAccountInfo, setIsEditingBio, onCancel }) => 
     return (
         <div className="edit-bio-container">
             <h2>Edit Your Bio</h2>
-            <form onSubmit={handleSave} className="edit-bio-form" encType="multipart/form-data">
+            <form onSubmit={handleSave} className="edit-bio-form">
                 {/* Textarea for editing bio */}
                 <textarea
                     name="bio"
@@ -111,8 +102,6 @@ const EditBio = ({ accountInfo, setAccountInfo, setIsEditingBio, onCancel }) => 
 };
 
 EditBio.propTypes = {
-    accountInfo: PropTypes.object.isRequired,
-    setAccountInfo: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     setIsEditingBio: PropTypes.func.isRequired,
 };

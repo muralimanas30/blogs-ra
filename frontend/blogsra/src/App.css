@@ -99,3 +99,21 @@
   -webkit-animation: STAR-MOVE 100s linear infinite;
   animation: STAR-MOVE 100s linear infinite;
 }
+/* From Uiverse.io by vinodjangid07 */ 
+button {
+  padding: 8px !important;        /* Basic spacing */
+  border: 1px solid #ccc;   /* Subtle border */
+  border-radius: 4px;       /* Slightly rounded corners */
+  color: #000;             /* Black text */
+  font-size: 14px;         /* Readable size */
+  cursor: pointer;         /* Pointer cursor on hover */
+  
+}
+
+button:hover {
+  background-color: #e0e0e0; /* Slightly darker on hover */
+}
+
+button:active {
+  background-color: #d0d0d0; /* Even darker when pressed */
+}

@@ -10,7 +10,7 @@
 .hero {
     position: relative;
     height: 75vh;
-    background: linear-gradient(135deg,rgba(0, 0, 0, 0.644), rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.329)), url('https://4kwallpapers.com/images/wallpapers/sunset-evening-sky-clouds-sun-behind-clouds-dramatic-2560x1440-9158.jpg') no-repeat center center/cover;
+    background:linear-gradient(135deg,rgba(0,0,0,0.644),rgba(0,0,0,0),rgba(0,0,0,0.329)),url('https://4kwallpapers.com/images/wallpapers/sunset-evening-sky-clouds-sun-behind-clouds-dramatic-1920-1080.jpg') no-repeat center center/cover;
     margin: 33px auto;
     display: flex;
     justify-content: center;
@@ -22,10 +22,26 @@
     border-left:2px solid white;
     border-right:2px solid white;
     border-radius: 15px;
-    -webkit-animation: homeFadeIn 0.4s linear;
-    animation: homeFadeIn 0.4s linear;
+    -webkit-animation: aboutFadeIn 0.4s linear forwards;
+    animation: aboutFadeIn 0.4s linear forwards;
+    -webkit-transform: translate(0%,10%);
+    -moz-transform: translate(0%,10%);
+    -ms-transform: translate(0%,10%);
+    -o-transform: translate(0%,10%);
+    transform: translate(0%,10%);
+    opacity: 0;
 }
 
+@keyframes aboutFadeIn {
+    to{
+        opacity: 1;
+        transform: translate(0,0);
+        -webkit-transform: translate(0,0);
+        -moz-transform: translate(0,0);
+        -ms-transform: translate(0,0);
+        -o-transform: translate(0,0);
+}
+}
 .hero .overlay {
     background: rgba(0, 0, 0, 0.5);
     text-align: center;

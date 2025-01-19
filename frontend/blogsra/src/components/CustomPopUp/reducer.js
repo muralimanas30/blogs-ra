@@ -1,7 +1,7 @@
 export const initialState = {
     pass: "",
     errorMsg: "",
-    loading: false, // Corrected to boolean type for consistency
+    loading: false, 
 };
 
 export default function reducer(state, action) {

@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react';
+import './SearchBox.css'; // Optional for styling
+import PropTypes from 'prop-types'
 
-const SearchBox = () => {
+const SearchBox = ({inputValue, setInputValue}) => {
+    
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+    };
+
+
     return (
-        <div>
-            SearchBox
-        </div>
-    )
+            <input
+                type="text"
+                className="searchbox-input"
+                placeholder="Search Users 👤"
+                value={inputValue}
+                onChange={handleInputChange}
+            />
+    );
+};
+SearchBox.propTypes ={
+    inputValue:PropTypes.string,
+    setInputValue:PropTypes.func,
+    handleSearch:PropTypes.func
 }
 
-export default SearchBox
+export default SearchBox;

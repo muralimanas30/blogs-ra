@@ -5,40 +5,44 @@ import { useAuthContext } from '../../context/AuthContext';
 import './DropDown.css';
 
 const DropDown = forwardRef(({ items, position, onMouseEnter, onMouseLeave }, ref) => {
+    const {user} = useAuthContext()
     const { logout } = useAuthContext();
     const navigate = useNavigate();
 
     // Handle click events for dropdown items
     const handleClick = (item) => {
         if (item.toLowerCase() === 'logout') {
-            logout(); // Perform logout action
+            logout(); 
         
         } else if(item.toLowerCase() === 'login'){
             navigate('/login')
         }
+        else if(item.toLowerCase().trim() === 'my blogs'){
+            navigate(`/user/${user.userId}`)
+        }
         else {
-            navigate(`/${item.toLowerCase()}`); // Navigate to other routes
+            navigate(`/${item.toLowerCase()}`); 
         }
     };
 
     return (
         <div
-            ref={ref} // Assign ref to the dropdown container
+            ref={ref}
             className="drop-down"
             style={{
                 top: `${position.top}px`,
                 left: `${position.left}px`,
                 transform:`translate(-60%,40%)`
             }}
-            onMouseEnter={onMouseEnter} // Keep the dropdown open when hovering over it
-            onMouseLeave={onMouseLeave} // Hide dropdown when leaving
+            onMouseEnter={onMouseEnter} 
+            onMouseLeave={onMouseLeave} 
         >
             <ul className="drop-down-list">
                 {items.map((item, index) => (
                     <li
                         key={index}
                         className="drop-down-list-item"
-                        onClick={() => handleClick(item)} // Handle item click
+                        onClick={() => handleClick(item)} 
                     >
                         {item}
                     </li>
@@ -48,15 +52,15 @@ const DropDown = forwardRef(({ items, position, onMouseEnter, onMouseLeave }, re
     );
 });
 
-// PropTypes for validating the props
+
 DropDown.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.string).isRequired, // 'items' should be an array of strings
+    items: PropTypes.arrayOf(PropTypes.string).isRequired,
     position: PropTypes.shape({
         top: PropTypes.number.isRequired,
         left: PropTypes.number.isRequired,
     }).isRequired,
-    onMouseEnter: PropTypes.func.isRequired, // Function to handle mouse enter on dropdown
-    onMouseLeave: PropTypes.func.isRequired, // Function to handle mouse leave on dropdown
+    onMouseEnter: PropTypes.func.isRequired,
+    onMouseLeave: PropTypes.func.isRequired,
 };
 
 DropDown.displayName = 'DropDown';
